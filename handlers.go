@@ -43,17 +43,6 @@ func ItemsCreate(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 }
 
 //
-// Categories
-//
-func CategoriesIndex(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-  var categories []Category
-
-  db.Scopes(Visible).Order("income").Find(&categories)
-
-  render(w, categories)
-}
-
-//
 // Consolidates
 //
 func ConsolidatesIndex(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {

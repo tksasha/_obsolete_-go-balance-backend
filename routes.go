@@ -11,11 +11,12 @@ type Route struct {
 }
 
 var routes = []Route {
-  Route { "GET",  "/items",     ItemsIndex  },
-  Route { "POST", "/items",     ItemsCreate },
-  Route { "GET",  "/items/:id", ItemsShow   },
+  //Route { "GET",  "/items",     ItemsIndex  },
+  //Route { "POST", "/items",     ItemsCreate },
+  //Route { "GET",  "/items/:id", ItemsShow   },
 
-  Route { "GET", "/categories", CategoriesIndex },
+  Route { "GET",  "/categories", CategoriesIndex  },
+  Route { "POST", "/categories", CategoriesCreate },
 
-  Route { "GET", "/consolidates", ConsolidatesIndex },
+  //Route { "GET", "/consolidates", ConsolidatesIndex },
 }

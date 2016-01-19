@@ -2,6 +2,8 @@ package main
 
 import (
   "log"
+  "fmt"
+  "os"
 
   _ "github.com/mattn/go-sqlite3"
   "github.com/jinzhu/gorm"
@@ -10,16 +12,22 @@ import (
 func NewDBConnection() (db gorm.DB) {
   var err error
 
-  if db, err = gorm.Open("sqlite3", "/Users/tksasha/balance/db/development.sqlite3"); err != nil {
+  //
+  // TODO: move it to main()
+  //
+  dir := fmt.Sprintf("%s/.balance/db",  os.Getenv("HOME"))
+
+  if err = os.MkdirAll(dir, 0755); err != nil {
+    panic(err)
+  }
+
+  url := fmt.Sprintf("%s/development.sqlite3", dir)
+
+  if db, err = gorm.Open("sqlite3", url); err != nil {
     log.Fatalln(err)
   }
 
-  return
-}
+  db.AutoMigrate(&Item{}, &Category{})
 
-//
-// Scopes
-//
-func Visible(db *gorm.DB) *gorm.DB {
-  return db.Where("visible = 't'")
+  return
 }

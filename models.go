@@ -12,11 +12,6 @@ type Item struct {
 	Description string    `json:"description"`
 }
 
-type Category struct {
-  ID    int     `json:"id"`
-  Name  string  `json:"name"`
-}
-
 type Consolidate struct {
   Sum         float32 `json:"sum"`
   CategoryID  int     `json:"category_id"`
