@@ -2,8 +2,9 @@ package main
 
 import (
   "net/url"
-)
 
+  "github.com/jinzhu/gorm"
+)
 
 type Category struct {
   ID      int     `json:"id"`
@@ -12,8 +13,8 @@ type Category struct {
   Visible bool    `json:"visible"`
 }
 
-func CreateCategory(params url.Values) (Category, map[string][]string) {
-  errs := make(map[string][]string)
+func CreateCategory(params url.Values) (Category, Errors) {
+  errors := make(Errors)
 
   var category Category
 
@@ -24,22 +25,29 @@ func CreateCategory(params url.Values) (Category, map[string][]string) {
   }
 
   if name == "" {
-    errs["name"] = append(errs["Name"], "can't be blank")
+    errors.Set("name", "can't be blank")
   }
 
-  if db.Where("name=?", name).First(&category).RecordNotFound() {
-    // do nothing
-  } else {
-    errs["Name"] = append(errs["Name"], "already exists")
+  if !db.Where("name=?", name).First(&category).RecordNotFound() {
+    errors.Set("name", "already exists")
   }
 
-  if len(errs["name"]) == 0 {
+  if errors.IsEmpty() {
     category.Name = name
 
     category.Visible = true
 
     db.Create(&category)
-  }
 
-  return category, errs
+    return category, nil
+  } else {
+    return category, errors
+  }
+}
+
+//
+// Scopes
+//
+func VisibleCategories(db *gorm.DB) *gorm.DB {
+  return db.Where("visible IN('t', 1)")
 }
