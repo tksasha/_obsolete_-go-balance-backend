@@ -2,27 +2,14 @@ package main
 
 import (
   "net/url"
-
-  "github.com/jinzhu/gorm"
 )
-
-type Category struct {
-  ID      int     `json:"id"`
-  Name    string  `json:"name"`
-  Income  bool    `json:"income"`
-  Visible bool    `json:"visible"`
-}
 
 func CreateCategory(params url.Values) (Category, Errors) {
   errors := make(Errors)
 
   var category Category
 
-  name := ""
-
-  if params["category[name]"] != nil {
-    name = params.Get("category[name]")
-  }
+  name := params.Get("category[name]")
 
   if name == "" {
     errors.Set("name", "can't be blank")
@@ -43,11 +30,4 @@ func CreateCategory(params url.Values) (Category, Errors) {
   } else {
     return category, errors
   }
-}
-
-//
-// Scopes
-//
-func VisibleCategories(db *gorm.DB) *gorm.DB {
-  return db.Where("visible IN('t', 1)")
 }

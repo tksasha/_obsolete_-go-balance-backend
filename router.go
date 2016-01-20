@@ -10,9 +10,9 @@ import (
 func NewRouter() http.Handler {
   router := httprouter.New()
 
-  for _, route := range routes {
-    router.Handle(route.Method, route.Path, route.HandlerFunc)
-  }
+  router.GET("/categories", CategoriesIndex)
+
+  router.POST("/categories", CategoriesCreate)
 
   return alice.New(LoggingHandler, ContentTypeHandler).Then(router)
 }

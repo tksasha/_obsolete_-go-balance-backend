@@ -9,7 +9,7 @@ import (
 )
 
 //
-// Items
+// GET /items
 //
 func ItemsIndex(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   params := r.URL.Query()
@@ -26,6 +26,9 @@ func ItemsIndex(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   render(w, &items)
 }
 
+//
+// GET /items/:id
+//
 func ItemsShow(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
   id := params.ByName("id")
 
@@ -38,12 +41,42 @@ func ItemsShow(w http.ResponseWriter, r *http.Request, params httprouter.Params)
   }
 }
 
+//
+// POST /items
+//
 func ItemsCreate(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   // Do nothing
 }
 
 //
-// Consolidates
+// GET /categories
+//
+func CategoriesIndex(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+  var categories []Category
+
+  db.
+    Scopes(VisibleCategories).
+    Order("income").
+    Find(&categories)
+
+  render(w, &categories)
+}
+
+//
+// POST /categories
+//
+func CategoriesCreate(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+  r.ParseForm()
+
+  if category, err := CreateCategory(r.Form); err != nil {
+    render(w, &err)
+  } else {
+    render(w, &category)
+  }
+}
+
+//
+// GET /consolidates
 //
 func ConsolidatesIndex(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   var consolidates []Consolidate

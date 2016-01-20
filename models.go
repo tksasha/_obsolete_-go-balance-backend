@@ -16,3 +16,10 @@ type Consolidate struct {
   Sum         float32 `json:"sum"`
   CategoryID  int     `json:"category_id"`
 }
+
+type Category struct {
+  ID      int     `json:"id"`
+  Name    string  `json:"name"`
+  Income  bool    `json:"income"`
+  Visible bool    `json:"visible"`
+}
