@@ -4,30 +4,17 @@ import (
   "net/url"
 )
 
-func CreateCategory(params url.Values) (Category, Errors) {
-  errors := make(Errors)
+//
+// Category
+//
+func (c *Category) Create(values url.Values) (bool, Errors) {
+  c.Build(values)
 
-  var category Category
+  if isValid, errors := c.Valid(); isValid == true {
+    db.Create(&c)
 
-  name := params.Get("category[name]")
-
-  if name == "" {
-    errors.Set("name", "can't be blank")
-  }
-
-  if !db.Where("name=?", name).First(&category).RecordNotFound() {
-    errors.Set("name", "already exists")
-  }
-
-  if errors.IsEmpty() {
-    category.Name = name
-
-    category.Visible = true
-
-    db.Create(&category)
-
-    return category, nil
+    return true, nil
   } else {
-    return category, errors
+    return false, errors
   }
 }

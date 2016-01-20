@@ -68,10 +68,12 @@ func CategoriesIndex(w http.ResponseWriter, r *http.Request, _ httprouter.Params
 func CategoriesCreate(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   r.ParseForm()
 
-  if category, err := CreateCategory(r.Form); err != nil {
-    render(w, &err)
-  } else {
+  category := Category{}
+
+  if isValid, errors := category.Create(r.Form); isValid == true {
     render(w, &category)
+  } else {
+    render(w, &errors)
   }
 }
 

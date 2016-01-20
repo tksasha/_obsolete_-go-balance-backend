@@ -2,12 +2,8 @@ package main
 
 type Errors map[string][]string
 
-func (e Errors) Set(key string, value string) {
+func (e Errors) Add(key string, value string) {
   e[key] = append(e[key], value)
-}
-
-func (e Errors) Get(key string) []string {
-  return e[key]
 }
 
 func (e Errors) IsEmpty() bool {

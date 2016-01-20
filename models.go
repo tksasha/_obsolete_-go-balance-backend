@@ -21,5 +21,5 @@ type Category struct {
   ID      int     `json:"id"`
   Name    string  `json:"name"`
   Income  bool    `json:"income"`
-  Visible bool    `json:"visible"`
+  Visible bool    `json:"visible" sql:"default:'t'"`
 }
