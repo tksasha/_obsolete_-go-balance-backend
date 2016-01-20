@@ -5,11 +5,11 @@ import (
 )
 
 type Item struct {
-	ID          int       `json:"id"`
-	Date        time.Time `json:"date"`
-	Sum         float32   `json:"sum"`
-	Formula     string    `json:"formula"`
-	Description string    `json:"description"`
+  ID          int       `json:"id"`
+  Date        time.Time `json:"date"`
+  Sum         float32   `json:"sum"`
+  Formula     string    `json:"formula"`
+  Description string    `json:"description"`
 }
 
 type Consolidate struct {
