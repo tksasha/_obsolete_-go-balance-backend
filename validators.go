@@ -1,5 +1,9 @@
 package main
 
+import (
+  . "github.com/tksasha/go-errors"
+)
+
 //
 // Category
 //

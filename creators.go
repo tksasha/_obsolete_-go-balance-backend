@@ -2,6 +2,8 @@ package main
 
 import (
   "net/url"
+
+  . "github.com/tksasha/go-errors"
 )
 
 //
