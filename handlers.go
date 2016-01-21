@@ -6,6 +6,7 @@ import (
   "log"
 
   "github.com/julienschmidt/httprouter"
+  "github.com/tksasha/go-date"
 )
 
 //
@@ -14,7 +15,7 @@ import (
 func ItemsIndex(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   params := r.URL.Query()
 
-  d := NewDate(params.Get("year"), params.Get("month"))
+  d := date.New(params.Get("year"), params.Get("month"))
 
   var items []Item
 
