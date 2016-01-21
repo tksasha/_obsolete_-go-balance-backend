@@ -14,5 +14,11 @@ func NewRouter() http.Handler {
 
   router.POST("/categories", CategoriesCreate)
 
+  router.GET("/items", ItemsIndex)
+
+  router.POST("/items", ItemsCreate)
+
+  router.GET("/consolidates", ConsolidatesIndex)
+
   return alice.New(LoggingHandler, ContentTypeHandler).Then(router)
 }

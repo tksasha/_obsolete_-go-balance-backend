@@ -10,6 +10,8 @@ type Item struct {
   Sum         float32   `json:"sum"`
   Formula     string    `json:"formula"`
   Description string    `json:"description"`
+  Category    Category  `json:"category"`
+  CategoryID  int       `json:"category_id"`
 }
 
 type Consolidate struct {

@@ -14,13 +14,14 @@ import (
 func ItemsIndex(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   params := r.URL.Query()
 
-  t := NewTime(params["year"][0], params["month"][0])
+  d := NewDate(params.Get("year"), params.Get("month"))
 
   var items []Item
 
   db.
-    Where("date BETWEEN ? AND ?", t.BeginningOfMonth().UTC(), t.EndOfMonth().UTC()).
+    Where("date BETWEEN ? AND ?", d.BeginningOfMonth().String(), d.EndOfMonth().String()).
     Order("date").
+    Preload("Category").
     Find(&items)
 
   render(w, &items)
@@ -45,7 +46,13 @@ func ItemsShow(w http.ResponseWriter, r *http.Request, params httprouter.Params)
 // POST /items
 //
 func ItemsCreate(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-  // Do nothing
+  r.ParseForm()
+
+  item := Item{}
+
+  item.Build(r.Form)
+
+  render(w, &item)
 }
 
 //
@@ -89,7 +96,7 @@ func ConsolidatesIndex(w http.ResponseWriter, r *http.Request, _ httprouter.Para
     Group("category_id").
     Scan(&consolidates)
 
-  render(w, consolidates)
+  render(w, &consolidates)
 }
 
 //
