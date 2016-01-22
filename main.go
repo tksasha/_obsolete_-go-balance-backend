@@ -8,9 +8,11 @@ import (
 
   _ "github.com/mattn/go-sqlite3"
   "github.com/jinzhu/gorm"
-)
 
-var db gorm.DB
+  . "./config"
+  . "./models"
+  . "./router"
+)
 
 func main() {
   var err error
@@ -29,21 +31,21 @@ func main() {
   //
   url := fmt.Sprintf("%s/development.sqlite3", dir)
 
-  if db, err = gorm.Open("sqlite3", url); err != nil {
+  if DB, err = gorm.Open("sqlite3", url); err != nil {
     log.Fatalln(err)
   }
 
-  defer db.Close()
+  defer DB.Close()
 
   //
   // Run Migrations
   //
-  db.AutoMigrate(&Item{}, &Category{})
+  DB.AutoMigrate(&Item{}, &Category{})
 
   //
   // Show SQL in LOG
   //
-  db.LogMode(true)
+  DB.LogMode(true)
 
   //
   // Serve HTTP Queries

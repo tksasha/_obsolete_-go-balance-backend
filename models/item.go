@@ -1,22 +1,23 @@
-package main
+package models
 
 import (
+  "time"
   "net/url"
   "strconv"
 
   "github.com/jinzhu/now"
 )
 
-//
-// Category
-//
-func (c *Category) Build(values url.Values) {
-  c.Name = values.Get("category[name]")
+type Item struct {
+  ID          int       `json:"id"`
+  Date        time.Time `json:"date"`
+  Sum         float32   `json:"sum"`
+  Formula     string    `json:"formula"`
+  Description string    `json:"description"`
+  Category    Category  `json:"category"`
+  CategoryID  int       `json:"category_id"`
 }
 
-//
-// Item
-//
 func (i *Item) Build(values url.Values) {
   if t, err := now.Parse(values.Get("item[date]")); err == nil {
     i.Date = t
