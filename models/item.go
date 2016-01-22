@@ -5,7 +5,7 @@ import (
   "net/url"
   "strconv"
 
-  "github.com/jinzhu/now"
+  "github.com/tksasha/go-date"
 )
 
 type Item struct {
@@ -19,9 +19,7 @@ type Item struct {
 }
 
 func (i *Item) Build(values url.Values) {
-  if t, err := now.Parse(values.Get("item[date]")); err == nil {
-    i.Date = t
-  }
+  i.Date = date.New(values.Get("item[date]")).Time()
 
   if id, err := strconv.Atoi(values.Get("item[category_id]")); err == nil {
     i.CategoryID = id
