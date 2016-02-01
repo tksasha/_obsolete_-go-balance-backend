@@ -10,9 +10,11 @@ import (
   . "../models"
 )
 
-type Items BaseHandler
+type Items struct {
+  BaseHandler
+}
 
-func (Items) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func (i Items) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   params := r.URL.Query()
 
   d := date.New(params.Get("year"), params.Get("month"))
@@ -25,10 +27,10 @@ func (Items) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) 
     Preload("Category").
     Find(&items)
 
-  render(w, &items)
+  i.render(w, &items)
 }
 
-func (Items) Show(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+func (i Items) Show(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
   id := params.ByName("id")
 
   var item Item
@@ -36,16 +38,16 @@ func (Items) Show(w http.ResponseWriter, r *http.Request, params httprouter.Para
   if DB.First(&item, id).RecordNotFound() {
     http.NotFound(w, r)
   } else {
-    render(w, &item)
+    i.render(w, &item)
   }
 }
 
-func (Items) Create(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func (i Items) Create(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   r.ParseForm()
 
   item := Item{}
 
   item.Build(r.Form)
 
-  render(w, &item)
+  i.render(w, &item)
 }

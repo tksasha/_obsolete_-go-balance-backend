@@ -9,9 +9,11 @@ import (
   . "../models"
 )
 
-type Consolidates BaseHandler
+type Consolidates struct {
+  BaseHandler
+}
 
-func (Consolidates) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func (c Consolidates) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   var consolidates []Consolidate
 
   DB.
@@ -20,5 +22,5 @@ func (Consolidates) Index(w http.ResponseWriter, r *http.Request, _ httprouter.P
     Group("category_id").
     Scan(&consolidates)
 
-  render(w, &consolidates)
+  c.render(w, &consolidates)
 }

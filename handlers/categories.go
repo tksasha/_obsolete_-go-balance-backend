@@ -9,9 +9,11 @@ import (
   . "../models"
 )
 
-type Categories BaseHandler
+type Categories struct {
+  BaseHandler
+}
 
-func (Categories) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func (c Categories) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   var categories []Category
 
   DB.
@@ -19,17 +21,17 @@ func (Categories) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Par
     Order("income").
     Find(&categories)
 
-  render(w, &categories)
+  c.render(w, &categories)
 }
 
-func (Categories) Create(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func (c Categories) Create(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   r.ParseForm()
 
   category := Category{}
 
   if isValid, errors := category.Create(r.Form); isValid == true {
-    render(w, &category)
+    c.render(w, &category)
   } else {
-    render(w, &errors)
+    c.render(w, &errors)
   }
 }
