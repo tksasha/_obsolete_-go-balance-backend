@@ -10,7 +10,7 @@ import (
   . "../models"
 )
 
-type Items int
+type Items BaseHandler
 
 func (Items) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   params := r.URL.Query()

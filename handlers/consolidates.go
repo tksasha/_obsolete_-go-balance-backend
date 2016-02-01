@@ -9,7 +9,7 @@ import (
   . "../models"
 )
 
-type Consolidates int
+type Consolidates BaseHandler
 
 func (Consolidates) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   var consolidates []Consolidate

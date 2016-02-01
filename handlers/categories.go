@@ -9,7 +9,7 @@ import (
   . "../models"
 )
 
-type Categories int
+type Categories BaseHandler
 
 func (Categories) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   var categories []Category
