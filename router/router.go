@@ -23,6 +23,8 @@ func NewRouter() http.Handler {
 
   router.PATCH("/categories/:id", new(Categories).Update)
 
+  router.PUT("/categories/:id", new(Categories).Update)
+
   router.DELETE("/categories/:id", new(Categories).Destroy)
 
   //
