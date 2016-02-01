@@ -5,6 +5,7 @@ import (
   "net/http"
   "fmt"
   "os"
+  "time"
 
   _ "github.com/mattn/go-sqlite3"
   "github.com/jinzhu/gorm"
@@ -16,6 +17,11 @@ import (
 
 func main() {
   var err error
+
+  //
+  // Set TimeZone
+  //
+  time.Local = time.UTC
 
   //
   // Prepare Workdir
