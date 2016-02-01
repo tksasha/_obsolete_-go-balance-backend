@@ -14,6 +14,9 @@ type Items struct {
   BaseHandler
 }
 
+//
+// GET /items
+//
 func (i Items) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   params := r.URL.Query()
 
@@ -30,6 +33,9 @@ func (i Items) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params
   i.render(w, &items)
 }
 
+//
+// GET /items/:id
+//
 func (i Items) Show(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
   id := params.ByName("id")
 
@@ -42,6 +48,9 @@ func (i Items) Show(w http.ResponseWriter, r *http.Request, params httprouter.Pa
   }
 }
 
+//
+// POST /items
+//
 func (i Items) Create(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   r.ParseForm()
 

@@ -37,7 +37,7 @@ func (h Categories) Create(w http.ResponseWriter, r *http.Request, _ httprouter.
   if category.IsCreate(r.Form) {
     h.render(w, category)
   } else {
-    h.render(w, category.Errors)
+    h.render(w, category.Errors, StatusUnprocessableEntity)
   }
 }
 
