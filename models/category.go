@@ -2,6 +2,7 @@ package models
 
 import (
   "net/url"
+  "strings"
 
   . "../config"
 )
@@ -11,8 +12,8 @@ type Category struct {
 
   ID      int     `json:"id"`
   Name    string  `json:"name"`
-  Income  bool    `json:"income"`
-  Visible bool    `json:"visible" sql:"default:'t'"`
+  Income  bool    `json:"-"`
+  Visible bool    `json:"-" sql:"default:'t'"`
 }
 
 func (c *Category) Build(values url.Values) {
@@ -62,7 +63,7 @@ func (c *Category) validatePresenceOfName() {
 func (c *Category) validateUniquenessOfName() {
   var count int
 
-  query := DB.Table("categories").Where("name=?", c.Name)
+  query := DB.Table("categories").Where("LOWER(name)=?", strings.ToLower(c.Name))
 
   if c.ID != 0 {
     query = query.Not("id = ?", c.ID)
