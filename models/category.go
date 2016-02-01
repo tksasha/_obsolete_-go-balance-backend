@@ -3,6 +3,7 @@ package models
 import (
   "net/url"
   "strings"
+  "time"
 
   . "../config"
 )
@@ -10,16 +11,28 @@ import (
 type Category struct {
   BaseModel
 
-  ID      int     `json:"id"`
-  Name    string  `json:"name"`
-  Income  bool    `json:"-"`
-  Visible bool    `json:"-" sql:"default:'t'"`
+  ID        int         `json:"id"`
+  Name      string      `json:"name"`
+  Income    bool        `json:"income"`
+  CreatedAt time.Time   `json:"created_at"`
+  DeletedAt *time.Time  `json:"-"`
 }
 
 func (c *Category) Build(values url.Values) {
   c.Init()
 
-  c.Name = values.Get("category[name]")
+  if name := values.Get("category[name]"); name != "" {
+    c.Name = name
+  }
+
+  if income := values.Get("category[income]"); income != "" {
+    switch values.Get("category[income]") {
+    case "1", "true":
+      c.Income = true
+    default:
+      c.Income = false
+    }
+  }
 }
 
 func (c *Category) IsValid() bool {

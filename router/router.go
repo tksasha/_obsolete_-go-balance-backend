@@ -19,7 +19,11 @@ func NewRouter() http.Handler {
 
   router.POST("/categories", new(Categories).Create)
 
+  router.POST("/categories/:id/recovery", new(Categories).Recovery)
+
   router.PATCH("/categories/:id", new(Categories).Update)
+
+  router.DELETE("/categories/:id", new(Categories).Destroy)
 
   //
   // /items
