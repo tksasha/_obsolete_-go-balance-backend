@@ -13,7 +13,7 @@ type Categories struct {
   BaseHandler
 }
 
-func (c Categories) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func (h Categories) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   var categories []Category
 
   DB.
@@ -21,7 +21,7 @@ func (c Categories) Index(w http.ResponseWriter, r *http.Request, _ httprouter.P
     Order("income").
     Find(&categories)
 
-  c.render(w, &categories)
+  h.render(w, &categories)
 }
 
 func (h Categories) Create(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
@@ -41,7 +41,11 @@ func (h Categories) Update(w http.ResponseWriter, r *http.Request, params httpro
 
   category := new(Category)
 
-  DB.First(category, params.ByName("id"))
+  if DB.Where("id = ?", params.ByName("id")).First(category).RecordNotFound() {
+    http.NotFound(w, r)
+
+    return
+  }
 
   if category.IsUpdate(r.Form) {
     h.render(w, category)
