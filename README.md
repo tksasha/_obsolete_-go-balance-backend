@@ -2,5 +2,5 @@
 
 ### TODO:
 - [x] use BaseHandler;
-- [ ] Allow to `update` Category;
+- [x] Allow to `update` Category;
 - [ ] Allow to `destroy` Category (safety destroy);

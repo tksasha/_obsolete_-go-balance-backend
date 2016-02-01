@@ -3,12 +3,12 @@ package models
 import (
   "net/url"
 
-  . "github.com/tksasha/go-errors"
-
   . "../config"
 )
 
 type Category struct {
+  BaseModel
+
   ID      int     `json:"id"`
   Name    string  `json:"name"`
   Income  bool    `json:"income"`
@@ -16,35 +16,61 @@ type Category struct {
 }
 
 func (c *Category) Build(values url.Values) {
+  c.Init()
+
   c.Name = values.Get("category[name]")
 }
 
-func (c *Category) Valid() (bool, Errors) {
-  errors := make(Errors)
+func (c *Category) IsValid() bool {
+  c.validatePresenceOfName()
 
-  if c.Name == "" {
-    errors.Add("name", "can't be blank")
-  }
+  c.validateUniquenessOfName()
 
-  var count int
-
-  DB.Table("categories").Where("name=?", c.Name).Count(&count)
-
-  if count > 0 {
-    errors.Add("name", "already exists")
-  }
-
-  return errors.IsEmpty(), errors
+  return c.Errors.IsEmpty()
 }
 
-func (c *Category) Create(values url.Values) (bool, Errors) {
+func (c *Category) IsCreate(values url.Values) bool {
   c.Build(values)
 
-  if isValid, errors := c.Valid(); isValid == true {
-    DB.Create(&c)
+  if c.IsValid() {
+    DB.Create(c)
 
-    return true, nil
+    return true
   } else {
-    return false, errors
+    return false
+  }
+}
+
+func (c *Category) IsUpdate(values url.Values) bool {
+  c.Build(values)
+
+  if c.IsValid() {
+    DB.Save(c)
+
+    return true
+  } else {
+    return false
+  }
+}
+
+func (c *Category) validatePresenceOfName() {
+  if c.Name == "" {
+    c.Errors.Add("name", "can't be blank")
+  }
+}
+
+func (c *Category) validateUniquenessOfName() {
+  var count int
+
+  query := DB.Table("categories").Where("name=?", c.Name)
+
+  if c.ID != 0 {
+    query = query.Not("id = ?", c.ID)
+  }
+
+  query.Count(&count)
+
+  if count > 0 {
+    c.Errors.Add("name", "already exists")
   }
 }

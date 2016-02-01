@@ -24,14 +24,28 @@ func (c Categories) Index(w http.ResponseWriter, r *http.Request, _ httprouter.P
   c.render(w, &categories)
 }
 
-func (c Categories) Create(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func (h Categories) Create(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   r.ParseForm()
 
-  category := Category{}
+  category := new(Category)
 
-  if isValid, errors := category.Create(r.Form); isValid == true {
-    c.render(w, &category)
+  if category.IsCreate(r.Form) {
+    h.render(w, category)
   } else {
-    c.render(w, &errors)
+    h.render(w, category.Errors)
+  }
+}
+
+func (h Categories) Update(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+  r.ParseForm()
+
+  category := new(Category)
+
+  DB.First(category, params.ByName("id"))
+
+  if category.IsUpdate(r.Form) {
+    h.render(w, category)
+  } else {
+    h.render(w, category.Errors)
   }
 }
