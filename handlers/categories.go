@@ -23,7 +23,7 @@ func (h Categories) Index(w http.ResponseWriter, r *http.Request, _ httprouter.P
     Order("income").
     Find(&categories)
 
-  h.render(w, &categories)
+  h.render(w, categories, 200)
 }
 
 //
@@ -35,9 +35,9 @@ func (h Categories) Create(w http.ResponseWriter, r *http.Request, _ httprouter.
   category := new(Category)
 
   if category.IsCreate(r.Form) {
-    h.render(w, category)
+    h.render(w, category, 200)
   } else {
-    h.render(w, category.Errors, StatusUnprocessableEntity)
+    h.render(w, category.Errors, 422)
   }
 }
 
@@ -56,9 +56,9 @@ func (h Categories) Update(w http.ResponseWriter, r *http.Request, params httpro
   }
 
   if category.IsUpdate(r.Form) {
-    h.render(w, category)
+    h.render(w, category, 200)
   } else {
-    h.render(w, category.Errors)
+    h.render(w, category.Errors, 422)
   }
 }
 
@@ -76,7 +76,7 @@ func(h Categories) Destroy(w http.ResponseWriter, r *http.Request, params httpro
 
   DB.Delete(category)
 
-  h.render(w, "OK")
+  h.render(w, "OK", 200)
 }
 
 //
@@ -93,5 +93,5 @@ func(h Categories) Recovery(w http.ResponseWriter, r *http.Request, params httpr
 
   DB.Unscoped().Model(&category).Update("deleted_at", nil)
 
-  h.render(w, category)
+  h.render(w, category, 200)
 }

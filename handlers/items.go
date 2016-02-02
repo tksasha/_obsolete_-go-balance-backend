@@ -30,7 +30,7 @@ func (i Items) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params
     Preload("Category").
     Find(&items)
 
-  i.render(w, &items)
+  i.render(w, items, 200)
 }
 
 //
@@ -44,19 +44,21 @@ func (i Items) Show(w http.ResponseWriter, r *http.Request, params httprouter.Pa
   if DB.First(&item, id).RecordNotFound() {
     http.NotFound(w, r)
   } else {
-    i.render(w, &item)
+    i.render(w, item, 200)
   }
 }
 
 //
 // POST /items
 //
-func (i Items) Create(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func (h Items) Create(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   r.ParseForm()
 
-  item := Item{}
+  item := new(Item)
 
-  item.Build(r.Form)
-
-  i.render(w, &item)
+  if item.IsCreate(r.Form) {
+    h.render(w, item, 200)
+  } else {
+    h.render(w, item.Errors, 422)
+  }
 }

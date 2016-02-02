@@ -22,5 +22,5 @@ func (c Consolidates) Index(w http.ResponseWriter, r *http.Request, _ httprouter
     Group("category_id").
     Scan(&consolidates)
 
-  c.render(w, &consolidates)
+  c.render(w, consolidates, 200)
 }
