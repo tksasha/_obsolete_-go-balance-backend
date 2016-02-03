@@ -4,6 +4,7 @@ import (
   "time"
   "net/url"
   "strconv"
+  "encoding/json"
 
   "github.com/tksasha/go-date"
 
@@ -13,40 +14,57 @@ import (
 type Item struct {
   BaseModel
 
-  ID          int       `json:"id"`
-  Date        time.Time `json:"date"`
-  Sum         float32   `json:"sum"`
-  Description string    `json:"description"`
-  Category    Category  `json:"category"`
-  CategoryID  int       `json:"-"`
+  ID          int
+  Date        time.Time
+  Sum         float64
+  Description string
+  Category    Category
+  CategoryID  int
 }
 
-func (i *Item) Build(values url.Values) {
-  i.Init()
+type ItemDecorator struct {
+  ID          int       `json:"id"`
+  Date        string    `json:"date"`
+  Sum         float64   `json:"sum"`
+  Description string    `json:"description"`
+  Category    Category  `json:"category"`
+}
+
+//
+// Item.Build()
+//
+func (item *Item) Build(values url.Values) {
+  item.Init()
 
   if d := values.Get("item[date]"); d != "" {
-    i.Date = date.New(d).Time()
+    item.Date = date.New(d).Time()
   }
 
   if category_id := values.Get("item[category_id]"); category_id != "" {
     if id, err := strconv.Atoi(category_id); err == nil {
-      i.CategoryID = id
+      item.CategoryID = id
     }
   }
 
   if sum := values.Get("item[sum]"); sum != "" {
-    if s, err := strconv.ParseFloat(sum, 32); err == nil {
-      i.Sum = float32(s)
+    if s, err := strconv.ParseFloat(sum, 64); err == nil {
+      item.Sum = s
     }
   }
 }
 
+//
+// Item.IsValid()
+//
 func (i *Item) IsValid() bool {
   i.Errors.Add("date", "something went wrong")
 
   return i.Errors.IsEmpty()
 }
 
+//
+// Item.IsCreate()
+//
 func (i *Item) IsCreate(values url.Values) bool {
   i.Build(values)
 
@@ -57,4 +75,19 @@ func (i *Item) IsCreate(values url.Values) bool {
   } else {
     return false
   }
+}
+
+//
+// Item.MarshalJSON()
+//
+func (i Item) MarshalJSON() ([]byte, error) {
+  d := ItemDecorator {
+    ID:           i.ID,
+    Date:         i.Date.Format("2006-01-02"),
+    Sum:          i.Sum,
+    Description:  i.Description,
+    Category:     i.Category,
+  }
+
+  return json.Marshal(d)
 }
