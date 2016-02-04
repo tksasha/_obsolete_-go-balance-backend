@@ -49,7 +49,7 @@ func (h Categories) Update(w http.ResponseWriter, r *http.Request, params httpro
 
   category := new(Category)
 
-  if DB.Where("id = ?", params.ByName("id")).First(category).RecordNotFound() {
+  if DB.First(category, params.ByName("id")).RecordNotFound() {
     http.NotFound(w, r)
 
     return
@@ -68,7 +68,7 @@ func (h Categories) Update(w http.ResponseWriter, r *http.Request, params httpro
 func(h Categories) Destroy(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
   category := new(Category)
 
-  if DB.Where("id = ?", params.ByName("id")).First(category).RecordNotFound() {
+  if DB.First(category, params.ByName("id")).RecordNotFound() {
     http.NotFound(w, r)
 
     return
@@ -85,7 +85,7 @@ func(h Categories) Destroy(w http.ResponseWriter, r *http.Request, params httpro
 func(h Categories) Recovery(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
   category := new(Category)
 
-  if DB.Unscoped().Where("id = ?", params.ByName("id")).First(category).RecordNotFound() {
+  if DB.Unscoped().First(category, params.ByName("id")).RecordNotFound() {
     http.NotFound(w, r)
 
     return
