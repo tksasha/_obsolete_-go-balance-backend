@@ -36,20 +36,28 @@ type ItemDecorator struct {
 func (item *Item) Build(values url.Values) {
   item.Init()
 
-  if d := values.Get("item[date]"); d != "" {
-    item.Date = date.New(d).Time()
+  if len(values["item[date]"]) != 0 {
+    item.Date = date.New(values.Get("item[date]")).Time()
   }
 
-  if category_id := values.Get("item[category_id]"); category_id != "" {
-    if id, err := strconv.Atoi(category_id); err == nil {
+  if len(values["item[category_id]"]) != 0 {
+    if id, err := strconv.Atoi(values.Get("item[category_id]")); err == nil {
       item.CategoryID = id
+    } else {
+      item.CategoryID = 0
     }
   }
 
-  if sum := values.Get("item[sum]"); sum != "" {
-    if s, err := strconv.ParseFloat(sum, 64); err == nil {
-      item.Sum = s
+  if len(values["item[sum]"]) != 0 {
+    if sum, err := strconv.ParseFloat(values.Get("item[sum]"), 64); err == nil {
+      item.Sum = sum
+    } else {
+      item.Sum = 0.0
     }
+  }
+
+  if len(values["item[description]"]) != 0 {
+    item.Description = values.Get("item[description]")
   }
 }
 
@@ -57,7 +65,11 @@ func (item *Item) Build(values url.Values) {
 // Item.IsValid()
 //
 func (i *Item) IsValid() bool {
-  i.Errors.Add("date", "something went wrong")
+  i.validateSumGreaterThanZero()
+
+  i.validatePresenceOfCategory()
+
+  i.validatePresenceOfDate()
 
   return i.Errors.IsEmpty()
 }
@@ -90,4 +102,24 @@ func (i Item) MarshalJSON() ([]byte, error) {
   }
 
   return json.Marshal(d)
+}
+
+func (i *Item) validateSumGreaterThanZero() {
+  if i.Sum == 0.0 {
+    i.Errors.Add("sum", "must be greater than 0")
+  }
+}
+
+func (i Item) validatePresenceOfCategory() {
+  var category Category
+
+  if DB.First(&category, i.CategoryID).RecordNotFound() {
+    i.Errors.Add("category_id", "can't be blank")
+  }
+}
+
+func (i Item) validatePresenceOfDate() {
+  if i.Date.IsZero() {
+    i.Errors.Add("date", "can't be blank")
+  }
 }
