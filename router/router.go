@@ -45,5 +45,10 @@ func NewRouter() http.Handler {
   //
   router.GET("/consolidates", new(Consolidates).Index)
 
+  //
+  // /cashes
+  //
+  router.POST("/cashes", new(Cashes).Create)
+
   return alice.New(LoggingHandler, ContentTypeHandler).Then(router)
 }

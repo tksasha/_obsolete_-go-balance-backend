@@ -12,6 +12,16 @@ import (
   . "../models"
 )
 
+func TestBuildErrors(t *testing.T) {
+  item := new(Item)
+
+  item.Build(Values)
+
+  assert.NotPanics(t, func() {
+    item.Errors.Add("foo", "is invalid")
+  })
+}
+
 func TestMarshalJSON(t *testing.T) {
   assert := assert.New(t)
 
@@ -45,16 +55,6 @@ func TestMarshalJSON(t *testing.T) {
   assert.Equal(36, d.Category.ID)
 
   assert.Equal("Food", d.Category.Name)
-}
-
-func TestBuildErrors(t *testing.T) {
-  item := new(Item)
-
-  item.Build(Values)
-
-  assert.NotPanics(t, func() {
-    item.Errors.Add("foo", "is invalid")
-  })
 }
 
 func TestBuildWithoutParams(t *testing.T) {
