@@ -1,4 +1,4 @@
-package config_test
+package test
 
 import (
   "net/url"
