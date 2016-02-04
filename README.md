@@ -7,7 +7,8 @@
 - [x] Allow to `destroy` Item;
 - [x] Add `Response Code` to `BaseHandler.render`;
 - [x] use BaseHandler;
-- [ ] Allow to `create` Category;
+- [x] Allow to `create` Category;
 - [x] Allow to `update` `Category`;
 - [x] Allow to `destroy` `Category` (safety destroy);
 - [x] Allow to `recovery` `Category`;
+- [ ] Tests for Handlers;
