@@ -62,3 +62,20 @@ func (h Items) Create(w http.ResponseWriter, r *http.Request, _ httprouter.Param
     h.render(w, item.Errors, 422)
   }
 }
+
+//
+// DELETE /items
+//
+func (i Items) Destroy(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+  item := new(Item)
+
+  if DB.First(item, params.ByName("id")).RecordNotFound() {
+    http.NotFound(w, r)
+
+    return
+  }
+
+  DB.Delete(item)
+
+  i.render(w, "OK", 200)
+}

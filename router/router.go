@@ -34,6 +34,8 @@ func NewRouter() http.Handler {
 
   router.POST("/items", new(Items).Create)
 
+  router.DELETE("/items/:id", new(Items).Destroy)
+
   //
   // /consolidates
   //
