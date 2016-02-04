@@ -37,7 +37,11 @@ func (item *Item) Build(values url.Values) {
   item.Init()
 
   if len(values["item[date]"]) != 0 {
-    item.Date = date.New(values.Get("item[date]")).Time()
+    if value := values.Get("item[date]"); value == "" {
+      item.Date = time.Time{}
+    } else {
+      item.Date = date.New(value).Time()
+    }
   }
 
   if len(values["item[category_id]"]) != 0 {
@@ -90,6 +94,21 @@ func (i *Item) IsCreate(values url.Values) bool {
 }
 
 //
+// Item.IsUpdate
+//
+func (i *Item) IsUpdate(values url.Values) bool {
+  i.Build(values)
+
+  if i.IsValid() {
+    DB.Save(i)
+
+    return true
+  } else {
+    return false
+  }
+}
+
+//
 // Item.MarshalJSON()
 //
 func (i Item) MarshalJSON() ([]byte, error) {
@@ -110,7 +129,7 @@ func (i *Item) validateSumGreaterThanZero() {
   }
 }
 
-func (i Item) validatePresenceOfCategory() {
+func (i *Item) validatePresenceOfCategory() {
   var category Category
 
   if DB.First(&category, i.CategoryID).RecordNotFound() {
@@ -118,7 +137,7 @@ func (i Item) validatePresenceOfCategory() {
   }
 }
 
-func (i Item) validatePresenceOfDate() {
+func (i *Item) validatePresenceOfDate() {
   if i.Date.IsZero() {
     i.Errors.Add("date", "can't be blank")
   }

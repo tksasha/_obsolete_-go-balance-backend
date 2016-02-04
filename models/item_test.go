@@ -106,7 +106,7 @@ func TestBuildWithEmptyValues(t *testing.T) {
 
   item.Build(Values)
 
-  assert.Equal(t, time.Now().Format("2006-01-02"), item.Date.Format("2006-01-02"))
+  assert.Equal(t, new(time.Time).Format("2006-01-02"), item.Date.Format("2006-01-02"))
 
   assert.Equal(t, 0, item.CategoryID)
 
@@ -143,6 +143,18 @@ func TestValidatePresenceOfDate(t *testing.T) {
   item := new(Item)
 
   delete(Values, "item[date]")
+
+  item.Build(Values)
+
+  assert.False(t, item.IsValid())
+
+  assert.Equal(t, []string{"can't be blank"}, item.Errors["date"])
+}
+
+func TestValidatePresenceOfDateWithEmptyString(t *testing.T) {
+  item := Item{ Date: time.Now() }
+
+  Values.Set("item[date]", "")
 
   item.Build(Values)
 

@@ -79,3 +79,24 @@ func (i Items) Destroy(w http.ResponseWriter, r *http.Request, params httprouter
 
   i.render(w, "OK", 200)
 }
+
+//
+// PATCH /items
+//
+func (i Items) Update(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+  r.ParseForm()
+
+  item := new(Item)
+
+  if DB.First(item, params.ByName("id")).RecordNotFound() {
+    http.NotFound(w, r)
+
+    return
+  }
+
+  if item.IsUpdate(r.Form) {
+    i.render(w, item, 200)
+  } else {
+    i.render(w, item.Errors, 422)
+  }
+}
