@@ -5,7 +5,7 @@ import (
 
   "github.com/julienschmidt/httprouter"
 
-  //. "../config"
+  . "../config"
   . "../models"
 )
 
@@ -26,4 +26,15 @@ func (c *Cashes) Create(w http.ResponseWriter, r *http.Request, _ httprouter.Par
   } else {
     c.render(w, cash.Errors, 422)
   }
+}
+
+//
+// GET /cashes
+//
+func (c *Cashes) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+  var cashes []Cash
+
+  DB.Find(&cashes)
+
+  c.render(w, cashes, 200)
 }

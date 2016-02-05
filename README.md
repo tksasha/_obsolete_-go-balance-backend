@@ -1,9 +1,10 @@
 # Golang Backend for Balance
 
 ### TODO:
+- [ ] Try to use BaseHandler to handle all queries;
 - [ ] Add tests for Category;
 - [x] Allow to `create` Cash;
-- [ ] Allow to `list` Cash;
+- [x] Allow to `list` Cash;
 - [ ] Allow to `update` Cash;
 - [ ] Allow to `destroy` Cash;
 - [x] Allow to `create` Item;
