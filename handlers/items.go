@@ -14,21 +14,6 @@ type Items struct {
 }
 
 //
-// GET /items/:id
-//
-func (i Items) Show(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-  id := params.ByName("id")
-
-  var item Item
-
-  if DB.First(&item, id).RecordNotFound() {
-    http.NotFound(w, r)
-  } else {
-    i.render(w, item, 200)
-  }
-}
-
-//
 // POST /items
 //
 func (h Items) Create(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
