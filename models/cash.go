@@ -16,6 +16,8 @@ type Cash struct {
   Sum   float64
 }
 
+type CashCollection []Cash
+
 //
 // Cash.Build
 //
@@ -61,6 +63,13 @@ func (c *Cash) IsCreate(values url.Values) bool {
   }
 }
 
+//
+// Cash.IsUpdate
+//
+func (c *Cash) IsUpdate(values url.Values) bool {
+  return true
+}
+
 func (c *Cash) validatePresenceOfName() {
   if c.Name == "" {
     c.Errors.Add("name", "can't be blank")
@@ -84,4 +93,11 @@ func (c *Cash) validateUniquenessOfName() {
   if count > 0 {
     c.Errors.Add("name", "already exists")
   }
+}
+
+//
+// CashCollection.Search
+//
+func (c *CashCollection) Search(values url.Values) {
+  DB.Find(c)
 }
