@@ -92,6 +92,9 @@ func (c *Category) validateUniquenessOfName() {
   }
 }
 
+//
+// CategoryCollection.Search
+//
 func (c *CategoryCollection) Search(values url.Values) {
   DB.Order("income").Find(&c)
 }

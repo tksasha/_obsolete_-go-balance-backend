@@ -7,7 +7,6 @@ import (
   "github.com/justinas/alice"
 
   . "../handlers"
-  . "../models"
 )
 
 func NewRouter() http.Handler {
@@ -16,42 +15,42 @@ func NewRouter() http.Handler {
   //
   // /categories
   //
-  router.GET("/categories", (&Handler { Collection: new(CategoryCollection) }).Index)
+  router.GET("/categories", Categories.Index)
 
-  router.POST("/categories", new(Categories).Create)
+  router.POST("/categories", Categories.Create)
 
-  router.POST("/categories/:id/recovery", new(Categories).Recovery)
+  //router.POST("/categories/:id/recovery", new(Categories).Recovery)
 
-  router.PATCH("/categories/:id", new(Categories).Update)
+  router.PATCH("/categories/:id", Categories.Update)
 
-  router.PUT("/categories/:id", new(Categories).Update)
+  router.PUT("/categories/:id", Categories.Update)
 
-  router.DELETE("/categories/:id", new(Categories).Destroy)
+  router.DELETE("/categories/:id", Categories.Destroy)
 
   //
   // /items
   //
-  router.GET("/items", (&Handler { Collection: new(ItemCollection) }).Index)
+  router.GET("/items", Items.Index)
 
-  router.POST("/items", new(Items).Create)
+  router.POST("/items", Items.Create)
 
-  router.DELETE("/items/:id", new(Items).Destroy)
+  router.DELETE("/items/:id", Items.Destroy)
 
-  router.PATCH("/items/:id", new(Items).Update)
+  router.PATCH("/items/:id", Items.Update)
 
-  router.PUT("/items/:id", new(Items).Update)
+  router.PUT("/items/:id", Items.Update)
 
   //
   // /consolidates
   //
-  router.GET("/consolidates", new(Consolidates).Index)
+  //router.GET("/consolidates", new(Consolidates).Index)
 
   //
   // /cashes
   //
-  router.POST("/cashes", new(Cashes).Create)
+  //router.POST("/cashes", new(Cashes).Create)
 
-  router.GET("/cashes", new(Cashes).Index)
+  //router.GET("/cashes", new(Cashes).Index)
 
   return alice.New(LoggingHandler, ContentTypeHandler).Then(router)
 }

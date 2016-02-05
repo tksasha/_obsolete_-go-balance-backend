@@ -11,3 +11,7 @@ type BaseModel struct {
 func (model *BaseModel) Init() {
   model.Errors = make(errors.Errors)
 }
+
+func (model *BaseModel) GetErrors() errors.Errors {
+  return model.Errors
+}

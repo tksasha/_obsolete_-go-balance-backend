@@ -145,10 +145,9 @@ func (i *Item) validatePresenceOfDate() {
   }
 }
 
-func (i *Item) First() {
-  DB.First(&i)
-}
-
+//
+// ItemCollection.Search
+//
 func (i *ItemCollection) Search(values url.Values) {
   d := date.New(values.Get("year"), values.Get("month"))
 

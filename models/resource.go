@@ -1,9 +1,13 @@
 package models
 
-type Resource interface {
-  First()
-}
+import (
+  "net/url"
 
-func First(r Resource) {
-  r.First()
+  "github.com/tksasha/go-errors"
+)
+
+type Resource interface {
+  IsCreate(url.Values) bool
+  IsUpdate(url.Values) bool
+  GetErrors() errors.Errors
 }
