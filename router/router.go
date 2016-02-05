@@ -16,7 +16,7 @@ func NewRouter() http.Handler {
   //
   // /categories
   //
-  router.GET("/categories", new(Categories).Index)
+  router.GET("/categories", (&Handler { Collection: new(CategoryCollection) }).Index)
 
   router.POST("/categories", new(Categories).Create)
 

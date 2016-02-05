@@ -19,6 +19,8 @@ type Category struct {
   DeletedAt *time.Time  `json:"-"`
 }
 
+type CategoryCollection []Category
+
 func (c *Category) Build(values url.Values) {
   c.Init()
 
@@ -88,4 +90,8 @@ func (c *Category) validateUniquenessOfName() {
   if count > 0 {
     c.Errors.Add("name", "already exists")
   }
+}
+
+func (c *CategoryCollection) Search(values url.Values) {
+  DB.Order("income").Find(&c)
 }

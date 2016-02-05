@@ -14,19 +14,6 @@ type Categories struct {
 }
 
 //
-// GET /categories
-//
-func (h Categories) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-  var categories []Category
-
-  DB.
-    Order("income").
-    Find(&categories)
-
-  h.render(w, categories, 200)
-}
-
-//
 // POST /categories
 //
 func (h Categories) Create(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
