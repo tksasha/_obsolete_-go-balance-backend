@@ -30,6 +30,8 @@ type ItemDecorator struct {
   Category    Category  `json:"category"`
 }
 
+type ItemCollection []Item
+
 //
 // Item.Build()
 //
@@ -141,4 +143,18 @@ func (i *Item) validatePresenceOfDate() {
   if i.Date.IsZero() {
     i.Errors.Add("date", "can't be blank")
   }
+}
+
+func (i *Item) First() {
+  DB.First(&i)
+}
+
+func (i *ItemCollection) Search(values url.Values) {
+  d := date.New(values.Get("year"), values.Get("month"))
+
+  DB.
+    Where("date BETWEEN ? AND ?", d.BeginningOfMonth().String(), d.EndOfMonth().String()).
+    Order("date").
+    Preload("Category").
+    Find(&i)
 }

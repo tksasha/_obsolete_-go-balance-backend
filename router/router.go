@@ -7,6 +7,7 @@ import (
   "github.com/justinas/alice"
 
   . "../handlers"
+  . "../models"
 )
 
 func NewRouter() http.Handler {
@@ -30,7 +31,7 @@ func NewRouter() http.Handler {
   //
   // /items
   //
-  router.GET("/items", new(Items).Index)
+  router.GET("/items", (&Handler { Collection: new(ItemCollection) }).Index)
 
   router.POST("/items", new(Items).Create)
 

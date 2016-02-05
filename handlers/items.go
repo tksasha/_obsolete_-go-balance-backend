@@ -4,7 +4,6 @@ import (
   "net/http"
 
   "github.com/julienschmidt/httprouter"
-  "github.com/tksasha/go-date"
 
   . "../config"
   . "../models"
@@ -12,25 +11,6 @@ import (
 
 type Items struct {
   BaseHandler
-}
-
-//
-// GET /items
-//
-func (i Items) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-  params := r.URL.Query()
-
-  d := date.New(params.Get("year"), params.Get("month"))
-
-  var items []Item
-
-  DB.
-    Where("date BETWEEN ? AND ?", d.BeginningOfMonth().String(), d.EndOfMonth().String()).
-    Order("date").
-    Preload("Category").
-    Find(&items)
-
-  i.render(w, items, 200)
 }
 
 //
