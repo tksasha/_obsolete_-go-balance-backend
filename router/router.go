@@ -7,6 +7,7 @@ import (
   "github.com/justinas/alice"
 
   . "../handlers"
+  . "../handlers/middleware"
 )
 
 func NewRouter() http.Handler {
@@ -52,5 +53,5 @@ func NewRouter() http.Handler {
 
   router.GET("/cashes", Cashes.Index)
 
-  return alice.New(LoggingHandler, ContentTypeHandler).Then(router)
+  return alice.New(LogMiddleware, ContentTypeMiddleware).Then(router)
 }
