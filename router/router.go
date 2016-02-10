@@ -20,7 +20,7 @@ func NewRouter() http.Handler {
 
   router.POST("/categories", Categories.Create)
 
-  //router.POST("/categories/:id/recovery", new(Categories).Recovery)
+  router.POST("/categories/:category_id/recovery", Recoveries.Create)
 
   router.PATCH("/categories/:id", Categories.Update)
 

@@ -6,10 +6,20 @@ import (
   "encoding/json"
 
   "github.com/julienschmidt/httprouter"
+  "github.com/tksasha/go-errors"
 
   . "../config"
-  . "../models"
 )
+
+type Resource interface {
+  IsCreate(url.Values) bool
+  IsUpdate(url.Values) bool
+  GetErrors() errors.Errors
+}
+
+type Collection interface {
+  Search(url.Values)
+}
 
 type RESTHandler struct {
   Resource    func() Resource
