@@ -2,6 +2,7 @@ package handlers
 
 import (
   "net/http"
+  "net/url"
   "encoding/json"
 
   "github.com/julienschmidt/httprouter"
@@ -27,21 +28,19 @@ func (h RESTHandler) Index(w http.ResponseWriter, r *http.Request, _ httprouter.
 
   collection.Search(r.URL.Query())
 
-  h.render(w, collection, 200)
+  render(w, collection, 200)
 }
 
 //
 // POST - Create Resource
 //
-func (h RESTHandler) Create(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-  r.ParseForm()
-
+func (h RESTHandler) Create(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
   resource := h.Resource()
 
-  if resource.IsCreate(r.Form) {
-    h.render(w, resource, 200)
+  if resource.IsCreate(values(r, params)) {
+    render(w, resource, 200)
   } else {
-    h.render(w, resource.GetErrors(), 422)
+    render(w, resource.GetErrors(), 422)
   }
 }
 
@@ -59,7 +58,7 @@ func (h RESTHandler) Destroy(w http.ResponseWriter, r *http.Request, params http
 
   DB.Delete(resource)
 
-  h.render(w, "OK", 200)
+  render(w, "OK", 200)
 }
 
 //
@@ -77,19 +76,31 @@ func(h RESTHandler) Update(w http.ResponseWriter, r *http.Request, params httpro
   }
 
   if resource.IsUpdate(r.Form) {
-    h.render(w, resource, 200)
+    render(w, resource, 200)
   } else {
-    h.render(w, resource.GetErrors(), 422)
+    render(w, resource.GetErrors(), 422)
   }
 }
 
 //
 // Service Methods
 //
-func (RESTHandler) render(w http.ResponseWriter, items interface{}, code int) {
+func render(w http.ResponseWriter, items interface{}, code int) {
   w.WriteHeader(code)
 
   if err := json.NewEncoder(w).Encode(items); err != nil {
     panic(err)
   }
+}
+
+func values(r *http.Request, params httprouter.Params) url.Values {
+  r.ParseForm()
+
+  values := r.Form
+
+  for _, param := range params {
+    values.Set(param.Key, param.Value)
+  }
+
+  return values
 }
