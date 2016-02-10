@@ -4,10 +4,10 @@ import (
   . "../models"
 )
 
-var Categories *Handler
+var Categories *RESTHandler
 
 func init() {
-  Categories = &Handler {
+  Categories = &RESTHandler {
     Collection: func() Collection { return new(CategoryCollection) },
     Resource:   func() Resource   { return new(Category) },
   }

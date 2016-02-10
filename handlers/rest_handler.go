@@ -10,7 +10,7 @@ import (
   . "../models"
 )
 
-type Handler struct {
+type RESTHandler struct {
   Resource    func() Resource
   Collection  func() Collection
 }
@@ -22,7 +22,7 @@ type Handler struct {
 //
 // GET - List Collection
 //
-func (h Handler) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func (h RESTHandler) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   collection := h.Collection()
 
   collection.Search(r.URL.Query())
@@ -33,7 +33,7 @@ func (h Handler) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Para
 //
 // POST - Create Resource
 //
-func (h Handler) Create(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func (h RESTHandler) Create(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   r.ParseForm()
 
   resource := h.Resource()
@@ -48,7 +48,7 @@ func (h Handler) Create(w http.ResponseWriter, r *http.Request, _ httprouter.Par
 //
 // DELETE - Destroy Resource
 //
-func (h Handler) Destroy(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+func (h RESTHandler) Destroy(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
   resource := h.Resource()
 
   if DB.First(resource, params.ByName("id")).RecordNotFound() {
@@ -65,7 +65,7 @@ func (h Handler) Destroy(w http.ResponseWriter, r *http.Request, params httprout
 //
 // PATCH - Update Resource
 //
-func(h Handler) Update(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+func(h RESTHandler) Update(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
   r.ParseForm()
 
   resource := h.Resource()
@@ -86,7 +86,7 @@ func(h Handler) Update(w http.ResponseWriter, r *http.Request, params httprouter
 //
 // Service Methods
 //
-func (Handler) render(w http.ResponseWriter, items interface{}, code int) {
+func (RESTHandler) render(w http.ResponseWriter, items interface{}, code int) {
   w.WriteHeader(code)
 
   if err := json.NewEncoder(w).Encode(items); err != nil {

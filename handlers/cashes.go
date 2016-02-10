@@ -4,10 +4,10 @@ import (
   . "../models"
 )
 
-var Cashes *Handler
+var Cashes *RESTHandler
 
 func init() {
-  Cashes = &Handler {
+  Cashes = &RESTHandler {
     Collection: func()  Collection  { return new(CashCollection) },
     Resource:   func()  Resource    { return new(Cash) },
   }

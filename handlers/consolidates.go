@@ -4,10 +4,10 @@ import (
   . "../models"
 )
 
-var Consolidates *Handler
+var Consolidates *RESTHandler
 
 func init() {
-  Consolidates = &Handler {
+  Consolidates = &RESTHandler {
     Collection: func() Collection { return new(ConsolidateCollection) },
   }
 }
