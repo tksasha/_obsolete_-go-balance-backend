@@ -43,7 +43,7 @@ func NewRouter() http.Handler {
   //
   // /consolidates
   //
-  //router.GET("/consolidates", new(Consolidates).Index)
+  router.GET("/consolidates", Consolidates.Index)
 
   //
   // /cashes
