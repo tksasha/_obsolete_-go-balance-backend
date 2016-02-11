@@ -22,8 +22,6 @@ type CashCollection []Cash
 // Cash.Build
 //
 func (c *Cash) Build(values url.Values) {
-  c.Init()
-
   if len(values["cash[name]"]) != 0 {
     c.Name = values.Get("cash[name]")
   }

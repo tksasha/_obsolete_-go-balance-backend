@@ -22,8 +22,6 @@ type Category struct {
 type CategoryCollection []Category
 
 func (c *Category) Build(values url.Values) {
-  c.Init()
-
   if name := values.Get("category[name]"); name != "" {
     c.Name = name
   }

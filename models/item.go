@@ -36,8 +36,6 @@ type ItemCollection []Item
 // Item.Build()
 //
 func (item *Item) Build(values url.Values) {
-  item.Init()
-
   if len(values["item[date]"]) != 0 {
     if value := values.Get("item[date]"); value == "" {
       item.Date = time.Time{}

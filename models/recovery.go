@@ -12,8 +12,6 @@ type Recovery struct {
 }
 
 func (r *Recovery) IsCreate(values url.Values) bool {
-  r.Init()
-
   var category Category
 
   if DB.Unscoped().First(&category, values["category_id"]).RecordNotFound() {
