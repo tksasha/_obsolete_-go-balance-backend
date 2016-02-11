@@ -1,6 +1,7 @@
 package handlers
 
 import (
+  . "./rest"
   . "../models"
 )
 

@@ -1,4 +1,4 @@
-package handlers
+package rest_handler
 
 import (
   "net/http"
@@ -8,7 +8,7 @@ import (
   "github.com/julienschmidt/httprouter"
   "github.com/tksasha/go-errors"
 
-  . "../config"
+  . "../../config"
 )
 
 type Resource interface {
