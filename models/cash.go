@@ -66,7 +66,15 @@ func (c *Cash) IsCreate(values url.Values) bool {
 // Cash.IsUpdate
 //
 func (c *Cash) IsUpdate(values url.Values) bool {
-  return true
+  c.Build(values)
+
+  if c.IsValid() {
+    DB.Save(c)
+
+    return true
+  } else {
+    return false
+  }
 }
 
 func (c *Cash) validatePresenceOfName() {

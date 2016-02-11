@@ -7,8 +7,6 @@ import (
 
   "github.com/julienschmidt/httprouter"
   "github.com/tksasha/go-errors"
-
-  . "../../config"
 )
 
 type Resource interface {
@@ -77,17 +75,15 @@ func (h RESTHandler) Destroy(w http.ResponseWriter, r *http.Request, params http
 // PATCH - Update Resource
 //
 func(h RESTHandler) Update(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-  r.ParseForm()
-
   resource := h.Resource()
 
-  if DB.First(resource, params.ByName("id")).RecordNotFound() {
+  if err := resource.Find(params.ByName("id")); err != nil && err.Error() == "record not found" {
     http.NotFound(w, r)
 
     return
   }
 
-  if resource.IsUpdate(r.Form) {
+  if resource.IsUpdate(values(r, params)) {
     render(w, resource, 200)
   } else {
     render(w, resource.GetErrors(), 422)

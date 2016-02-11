@@ -5,7 +5,7 @@
 - [x] Add RESTHandler to handle all queries;
 - [x] Allow to `create` Cash;
 - [x] Allow to `list` Cash;
-- [ ] Allow to `update` Cash;
+- [x] Allow to `update` Cash;
 - [x] Allow to `destroy` Cash;
 - [x] Allow to `create` Item;
 - [x] Allow to `list` Items (with filters by speciefic `year` and `month`);
