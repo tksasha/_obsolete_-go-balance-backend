@@ -15,6 +15,8 @@ type Resource interface {
   IsCreate(url.Values) bool
   IsUpdate(url.Values) bool
   GetErrors() errors.Errors
+  Find(string) error
+  Destroy()
 }
 
 type Collection interface {
@@ -60,13 +62,13 @@ func (h RESTHandler) Create(w http.ResponseWriter, r *http.Request, params httpr
 func (h RESTHandler) Destroy(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
   resource := h.Resource()
 
-  if DB.First(resource, params.ByName("id")).RecordNotFound() {
+  if err := resource.Find(params.ByName("id")); err != nil && err.Error() == "record not found" {
     http.NotFound(w, r)
 
     return
   }
 
-  DB.Delete(resource)
+  resource.Destroy()
 
   render(w, "OK", 200)
 }

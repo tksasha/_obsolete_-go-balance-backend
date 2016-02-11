@@ -5,10 +5,13 @@ import (
 
   "github.com/tksasha/go-date"
 
+  . "./rest"
   . "../config"
 )
 
 type Consolidate struct {
+  RESTModel
+
   Sum         float32 `json:"sum"`
   CategoryID  int     `json:"category_id"`
 }

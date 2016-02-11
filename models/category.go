@@ -5,11 +5,12 @@ import (
   "strings"
   "time"
 
+  . "./rest"
   . "../config"
 )
 
 type Category struct {
-  BaseModel
+  RESTModel
 
   ID        int         `json:"id"`
   Name      string      `json:"name"`

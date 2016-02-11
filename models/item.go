@@ -8,11 +8,12 @@ import (
 
   "github.com/tksasha/go-date"
 
+  . "./rest"
   . "../config"
 )
 
 type Item struct {
-  BaseModel
+  RESTModel
 
   ID          int
   Date        time.Time

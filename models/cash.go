@@ -5,11 +5,12 @@ import (
   "strconv"
   "strings"
 
+  . "./rest"
   . "../config"
 )
 
 type Cash struct {
-  BaseModel
+  RESTModel
 
   ID    int
   Name  string
@@ -98,4 +99,18 @@ func (c *Cash) validateUniquenessOfName() {
 //
 func (c *CashCollection) Search(values url.Values) {
   DB.Find(c)
+}
+
+//
+// Cash.Find
+//
+func (c *Cash) Find(id string) error {
+  return DB.First(c, id).Error
+}
+
+//
+// Cash.Destroy
+//
+func (c *Cash) Destroy() {
+  DB.Delete(c)
 }

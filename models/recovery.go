@@ -4,11 +4,12 @@ import (
   "net/url"
   "encoding/json"
 
+  . "./rest"
   . "../config"
 )
 
 type Recovery struct {
-  BaseModel
+  RESTModel
 }
 
 func (r *Recovery) IsCreate(values url.Values) bool {
