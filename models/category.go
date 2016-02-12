@@ -5,12 +5,13 @@ import (
   "strings"
   "time"
 
-  . "./rest"
+  "github.com/tksasha/go-rest"
+
   . "../config"
 )
 
 type Category struct {
-  RESTModel
+  rest.Model
 
   ID        int         `json:"id"`
   Name      string      `json:"name"`

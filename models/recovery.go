@@ -4,12 +4,13 @@ import (
   "net/url"
   "encoding/json"
 
-  . "./rest"
+  "github.com/tksasha/go-rest"
+
   . "../config"
 )
 
 type Recovery struct {
-  RESTModel
+  rest.Model
 }
 
 func (r *Recovery) IsCreate(values url.Values) bool {

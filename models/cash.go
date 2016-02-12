@@ -5,12 +5,13 @@ import (
   "strconv"
   "strings"
 
-  . "./rest"
+  "github.com/tksasha/go-rest"
+
   . "../config"
 )
 
 type Cash struct {
-  RESTModel
+  rest.Model
 
   ID    int
   Name  string

@@ -7,13 +7,13 @@ import (
   "encoding/json"
 
   "github.com/tksasha/go-date"
+  "github.com/tksasha/go-rest"
 
-  . "./rest"
   . "../config"
 )
 
 type Item struct {
-  RESTModel
+  rest.Model
 
   ID          int
   Date        time.Time
