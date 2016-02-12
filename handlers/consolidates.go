@@ -1,14 +1,15 @@
 package handlers
 
 import (
-  . "./rest"
+  "github.com/tksasha/go-rest"
+
   . "../models"
 )
 
-var Consolidates *RESTHandler
+var Consolidates *rest.Handler
 
 func init() {
-  Consolidates = &RESTHandler {
-    Collection: func() Collection { return new(ConsolidateCollection) },
+  Consolidates = &rest.Handler {
+    Collection: func() rest.Collection { return new(ConsolidateCollection) },
   }
 }

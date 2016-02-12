@@ -1,15 +1,16 @@
 package handlers
 
 import (
-  . "./rest"
+  "github.com/tksasha/go-rest"
+
   . "../models"
 )
 
-var Items *RESTHandler
+var Items *rest.Handler
 
 func init() {
-  Items = &RESTHandler {
-    Collection: func() Collection { return new(ItemCollection) },
-    Resource:   func() Resource   { return new(Item) },
+  Items = &rest.Handler {
+    Collection: func() rest.Collection { return new(ItemCollection) },
+    Resource:   func() rest.Resource   { return new(Item) },
   }
 }
