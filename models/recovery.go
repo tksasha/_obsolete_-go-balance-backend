@@ -4,7 +4,7 @@ import (
   "net/url"
   "encoding/json"
 
-  "github.com/tksasha/go-rest"
+  "github.com/tksasha/rest"
 
   . "../config"
 )

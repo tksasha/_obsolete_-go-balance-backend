@@ -5,7 +5,7 @@ import (
   "strings"
   "time"
 
-  "github.com/tksasha/go-rest"
+  "github.com/tksasha/rest"
 
   . "../config"
 )

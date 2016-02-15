@@ -6,7 +6,7 @@ import (
   "time"
 
   "github.com/stretchr/testify/assert"
-  "github.com/tksasha/go-date"
+  "github.com/tksasha/date"
 
   . "../config/test"
   . "../models"

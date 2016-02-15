@@ -5,7 +5,7 @@ import (
   "strconv"
   "strings"
 
-  "github.com/tksasha/go-rest"
+  "github.com/tksasha/rest"
 
   . "../config"
 )

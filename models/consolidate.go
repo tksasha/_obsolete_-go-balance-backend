@@ -3,8 +3,8 @@ package models
 import (
   "net/url"
 
-  "github.com/tksasha/go-date"
-  "github.com/tksasha/go-rest"
+  "github.com/tksasha/date"
+  "github.com/tksasha/rest"
 
   . "../config"
 )
