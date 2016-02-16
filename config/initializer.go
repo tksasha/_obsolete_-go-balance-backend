@@ -1,16 +1,13 @@
 package config
 
 import (
-  "fmt"
-  "os"
   "time"
+  "os"
+  "log"
 
+  _ "github.com/lib/pq"
   "github.com/jinzhu/gorm"
 )
-
-var WorkDir string
-
-var DBWorkDir string
 
 var DB gorm.DB
 
@@ -20,14 +17,23 @@ func init() {
   //
   time.Local = time.UTC
 
-  WorkDir = fmt.Sprintf("%s/.balance", os.Getenv("HOME"))
+  DBURL := os.Getenv("DBURL")
 
-  DBWorkDir = fmt.Sprintf("%s/db", WorkDir)
+  if DBURL == "" {
+    log.Fatalln("$DBURL must be specified")
+  }
+
+  var err error
 
   //
-  // Prepare DBWorkDir
+  // Make DataBase Connection
   //
-  if err := os.MkdirAll(DBWorkDir, 0755); err != nil {
+  if DB, err = gorm.Open("postgres", DBURL); err != nil {
     panic(err)
   }
+
+  //
+  // Show SQL in LOG
+  //
+  DB.LogMode(true)
 }

@@ -12,6 +12,10 @@ import (
   . "github.com/tksasha/balance/config"
 )
 
+func init() {
+  DB.AutoMigrate(&Item{})
+}
+
 type Item struct {
   rest.Model
 

@@ -10,6 +10,10 @@ import (
   . "github.com/tksasha/balance/config"
 )
 
+func init() {
+  DB.AutoMigrate(&Category{})
+}
+
 type Category struct {
   rest.Model
 

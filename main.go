@@ -5,7 +5,6 @@ import (
   "net/http"
 
   . "github.com/tksasha/balance/config"
-  _ "github.com/tksasha/balance/config/development"
   . "github.com/tksasha/balance/router"
 )
 
