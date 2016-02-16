@@ -17,9 +17,9 @@ func init() {
 	//
 	time.Local = time.UTC
 
-	DBURL := os.Getenv("DBURL")
+	dburl := os.Getenv("DBURL")
 
-	if DBURL == "" {
+	if dburl == "" {
 		log.Fatalln("$DBURL must be specified")
 	}
 
@@ -28,7 +28,7 @@ func init() {
 	//
 	// Make DataBase Connection
 	//
-	if DB, err = gorm.Open("postgres", DBURL); err != nil {
+	if DB, err = gorm.Open("postgres", dburl); err != nil {
 		panic(err)
 	}
 
