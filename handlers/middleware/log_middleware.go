@@ -1,12 +1,12 @@
 package middleware
 
 import (
-  "net/http"
-  "os"
+	"net/http"
+	"os"
 
-  "github.com/gorilla/handlers"
+	"github.com/tksasha/balance/Godeps/_workspace/src/github.com/gorilla/handlers"
 )
 
 func LogMiddleware(h http.Handler) http.Handler {
-  return handlers.LoggingHandler(os.Stdout, h)
+	return handlers.LoggingHandler(os.Stdout, h)
 }

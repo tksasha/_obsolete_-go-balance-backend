@@ -1,39 +1,39 @@
 package config
 
 import (
-  "time"
-  "os"
-  "log"
+	"log"
+	"os"
+	"time"
 
-  _ "github.com/lib/pq"
-  "github.com/jinzhu/gorm"
+	"github.com/tksasha/balance/Godeps/_workspace/src/github.com/jinzhu/gorm"
+	_ "github.com/tksasha/balance/Godeps/_workspace/src/github.com/lib/pq"
 )
 
 var DB gorm.DB
 
 func init() {
-  //
-  // Set TimeZone
-  //
-  time.Local = time.UTC
+	//
+	// Set TimeZone
+	//
+	time.Local = time.UTC
 
-  DBURL := os.Getenv("DBURL")
+	DBURL := os.Getenv("DBURL")
 
-  if DBURL == "" {
-    log.Fatalln("$DBURL must be specified")
-  }
+	if DBURL == "" {
+		log.Fatalln("$DBURL must be specified")
+	}
 
-  var err error
+	var err error
 
-  //
-  // Make DataBase Connection
-  //
-  if DB, err = gorm.Open("postgres", DBURL); err != nil {
-    panic(err)
-  }
+	//
+	// Make DataBase Connection
+	//
+	if DB, err = gorm.Open("postgres", DBURL); err != nil {
+		panic(err)
+	}
 
-  //
-  // Show SQL in LOG
-  //
-  DB.LogMode(true)
+	//
+	// Show SQL in LOG
+	//
+	DB.LogMode(true)
 }
