@@ -4,9 +4,9 @@ import (
   "log"
   "net/http"
 
-  . "./config"
-  _ "./config/development"
-  . "./router"
+  . "github.com/tksasha/balance/config"
+  _ "github.com/tksasha/balance/config/development"
+  . "github.com/tksasha/balance/router"
 )
 
 func main() {

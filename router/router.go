@@ -6,8 +6,8 @@ import (
   "github.com/julienschmidt/httprouter"
   "github.com/justinas/alice"
 
-  . "../handlers"
-  . "../handlers/middleware"
+  . "github.com/tksasha/balance/handlers"
+  . "github.com/tksasha/balance/handlers/middleware"
 )
 
 func NewRouter() http.Handler {

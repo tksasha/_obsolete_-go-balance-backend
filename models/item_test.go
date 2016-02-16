@@ -8,8 +8,8 @@ import (
   "github.com/stretchr/testify/assert"
   "github.com/tksasha/date"
 
-  . "../config/test"
-  . "../models"
+  . "github.com/tksasha/balance/config/test"
+  . "github.com/tksasha/balance/models"
 )
 
 func TestBuildErrors(t *testing.T) {

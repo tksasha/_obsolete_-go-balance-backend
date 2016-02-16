@@ -5,8 +5,8 @@ import (
 
   "github.com/stretchr/testify/assert"
 
-  . "../config/test"
-  . "../models"
+  . "github.com/tksasha/balance/config/test"
+  . "github.com/tksasha/balance/models"
 )
 
 func TestCashErrors(t *testing.T) {

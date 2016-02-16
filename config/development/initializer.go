@@ -4,8 +4,8 @@ import (
   _ "github.com/mattn/go-sqlite3"
   "github.com/jinzhu/gorm"
 
-  . "../../config"
-  . "../../models"
+  . "github.com/tksasha/balance/config"
+  . "github.com/tksasha/balance/models"
 )
 
 func init() {

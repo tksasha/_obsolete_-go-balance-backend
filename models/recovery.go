@@ -6,7 +6,7 @@ import (
 
   "github.com/tksasha/rest"
 
-  . "../config"
+  . "github.com/tksasha/balance/config"
 )
 
 type Recovery struct {

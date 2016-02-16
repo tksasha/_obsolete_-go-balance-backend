@@ -3,7 +3,7 @@ package handlers
 import (
   "github.com/tksasha/rest"
 
-  . "../models"
+  . "github.com/tksasha/balance/models"
 )
 
 var Consolidates *rest.Handler
