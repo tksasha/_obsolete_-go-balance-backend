@@ -57,5 +57,5 @@ func NewRouter() http.Handler {
 
 	router.PATCH("/cashes/:id", Cashes.Update)
 
-	return alice.New(LogMiddleware, ContentTypeMiddleware).Then(router)
+	return alice.New(ContentTypeMiddleware).Then(router)
 }
