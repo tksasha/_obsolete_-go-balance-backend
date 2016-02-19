@@ -3,7 +3,7 @@ package models_test
 import (
 	"testing"
 
-	"github.com/tksasha/balance/Godeps/_workspace/src/github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/assert"
 
 	. "github.com/tksasha/balance/config/test"
 	. "github.com/tksasha/balance/models"

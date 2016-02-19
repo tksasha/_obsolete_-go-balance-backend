@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/tksasha/balance/Godeps/_workspace/src/github.com/tksasha/date"
-	"github.com/tksasha/balance/Godeps/_workspace/src/github.com/tksasha/rest"
+	"github.com/tksasha/date"
+	"github.com/tksasha/rest"
 
 	. "github.com/tksasha/balance/config"
 )

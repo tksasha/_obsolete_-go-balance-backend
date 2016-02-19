@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/tksasha/balance/Godeps/_workspace/src/github.com/tksasha/rest"
+	"github.com/tksasha/rest"
 
 	. "github.com/tksasha/balance/config"
 )

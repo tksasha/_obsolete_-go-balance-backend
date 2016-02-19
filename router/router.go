@@ -3,8 +3,8 @@ package router
 import (
 	"net/http"
 
-	"github.com/tksasha/balance/Godeps/_workspace/src/github.com/julienschmidt/httprouter"
-	"github.com/tksasha/balance/Godeps/_workspace/src/github.com/justinas/alice"
+	"github.com/julienschmidt/httprouter"
+	"github.com/justinas/alice"
 
 	. "github.com/tksasha/balance/handlers"
 	. "github.com/tksasha/balance/handlers/middleware"

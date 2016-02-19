@@ -5,11 +5,13 @@ import (
 	"os"
 	"time"
 
-	"github.com/tksasha/balance/Godeps/_workspace/src/github.com/jinzhu/gorm"
-	_ "github.com/tksasha/balance/Godeps/_workspace/src/github.com/lib/pq"
+	"github.com/jinzhu/gorm"
+	_ "github.com/lib/pq"
 )
 
 var DB gorm.DB
+
+var PORT string
 
 func init() {
 	//
@@ -17,11 +19,23 @@ func init() {
 	//
 	time.Local = time.UTC
 
+  //
+  // Check $DBURL
+  //
 	dburl := os.Getenv("DBURL")
 
 	if dburl == "" {
 		log.Fatalln("$DBURL must be specified")
 	}
+
+  //
+  // Check $PORT
+  //
+  PORT = os.Getenv("PORT")
+
+  if PORT == "" {
+    log.Fatalln("$PORT must be specified")
+  }
 
 	var err error
 
