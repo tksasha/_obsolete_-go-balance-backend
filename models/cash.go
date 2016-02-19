@@ -1,21 +1,21 @@
 package models
 
 import (
-	"net/url"
-	"strconv"
-	"strings"
+  "net/url"
+  "strconv"
+  "strings"
 
-	"github.com/tksasha/rest"
+  "github.com/tksasha/rest"
 
-	. "github.com/tksasha/balance/config"
+  . "github.com/tksasha/balance/config"
 )
 
 type Cash struct {
-	rest.Model
+  rest.Model
 
-	ID   int
-	Name string
-	Sum  float64
+  ID   int
+  Name string
+  Sum  float64
 }
 
 type CashCollection []Cash
@@ -24,102 +24,102 @@ type CashCollection []Cash
 // Cash.Build
 //
 func (c *Cash) Build(values url.Values) {
-	if len(values["cash[name]"]) != 0 {
-		c.Name = values.Get("cash[name]")
-	}
+  if len(values["cash[name]"]) != 0 {
+    c.Name = values.Get("cash[name]")
+  }
 
-	if len(values["cash[sum]"]) != 0 {
-		if sum, err := strconv.ParseFloat(values.Get("cash[sum]"), 64); err == nil {
-			c.Sum = sum
-		} else {
-			c.Sum = 0.0
-		}
-	}
+  if len(values["cash[sum]"]) != 0 {
+    if sum, err := strconv.ParseFloat(values.Get("cash[sum]"), 64); err == nil {
+      c.Sum = sum
+    } else {
+      c.Sum = 0.0
+    }
+  }
 }
 
 //
 // Cash.IsValid
 //
 func (c *Cash) IsValid() bool {
-	c.validatePresenceOfName()
+  c.validatePresenceOfName()
 
-	c.validateUniquenessOfName()
+  c.validateUniquenessOfName()
 
-	return c.Errors.IsEmpty()
+  return c.Errors.IsEmpty()
 }
 
 //
 // Cash.IsCreate
 //
 func (c *Cash) IsCreate(values url.Values) bool {
-	c.Build(values)
+  c.Build(values)
 
-	if c.IsValid() {
-		DB.Create(c)
+  if c.IsValid() {
+    DB.Create(c)
 
-		return true
-	} else {
-		return false
-	}
+    return true
+  } else {
+    return false
+  }
 }
 
 //
 // Cash.IsUpdate
 //
 func (c *Cash) IsUpdate(values url.Values) bool {
-	c.Build(values)
+  c.Build(values)
 
-	if c.IsValid() {
-		DB.Save(c)
+  if c.IsValid() {
+    DB.Save(c)
 
-		return true
-	} else {
-		return false
-	}
+    return true
+  } else {
+    return false
+  }
 }
 
 func (c *Cash) validatePresenceOfName() {
-	if c.Name == "" {
-		c.Errors.Add("name", "can't be blank")
-	}
+  if c.Name == "" {
+    c.Errors.Add("name", "can't be blank")
+  }
 }
 
 //
 // TODO: test me
 //
 func (c *Cash) validateUniquenessOfName() {
-	var count int
+  var count int
 
-	query := DB.Table("cashes").Where("LOWER(name)=?", strings.ToLower(c.Name))
+  query := DB.Table("cashes").Where("LOWER(name)=?", strings.ToLower(c.Name))
 
-	if c.ID != 0 {
-		query = query.Not("id = ?", c.ID)
-	}
+  if c.ID != 0 {
+    query = query.Not("id = ?", c.ID)
+  }
 
-	query.Count(&count)
+  query.Count(&count)
 
-	if count > 0 {
-		c.Errors.Add("name", "already exists")
-	}
+  if count > 0 {
+    c.Errors.Add("name", "already exists")
+  }
 }
 
 //
 // CashCollection.Search
 //
 func (c *CashCollection) Search(values url.Values) {
-	DB.Find(c)
+  DB.Find(c)
 }
 
 //
 // Cash.Find
 //
 func (c *Cash) Find(id string) error {
-	return DB.First(c, id).Error
+  return DB.First(c, id).Error
 }
 
 //
 // Cash.Destroy
 //
 func (c *Cash) Destroy() {
-	DB.Delete(c)
+  DB.Delete(c)
 }

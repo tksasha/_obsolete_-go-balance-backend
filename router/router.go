@@ -1,61 +1,61 @@
 package router
 
 import (
-	"net/http"
+  "net/http"
 
-	"github.com/julienschmidt/httprouter"
-	"github.com/justinas/alice"
+  "github.com/julienschmidt/httprouter"
+  "github.com/justinas/alice"
 
-	. "github.com/tksasha/balance/handlers"
-	. "github.com/tksasha/balance/handlers/middleware"
+  . "github.com/tksasha/balance/handlers"
+  . "github.com/tksasha/balance/handlers/middleware"
 )
 
 func NewRouter() http.Handler {
-	router := httprouter.New()
+  router := httprouter.New()
 
-	//
-	// /categories
-	//
-	router.GET("/categories", Categories.Index)
+  //
+  // /categories
+  //
+  router.GET("/categories", Categories.Index)
 
-	router.POST("/categories", Categories.Create)
+  router.POST("/categories", Categories.Create)
 
-	router.POST("/categories/:category_id/recovery", Recoveries.Create)
+  router.POST("/categories/:category_id/recovery", Recoveries.Create)
 
-	router.PATCH("/categories/:id", Categories.Update)
+  router.PATCH("/categories/:id", Categories.Update)
 
-	router.PUT("/categories/:id", Categories.Update)
+  router.PUT("/categories/:id", Categories.Update)
 
-	router.DELETE("/categories/:id", Categories.Destroy)
+  router.DELETE("/categories/:id", Categories.Destroy)
 
-	//
-	// /items
-	//
-	router.GET("/items", Items.Index)
+  //
+  // /items
+  //
+  router.GET("/items", Items.Index)
 
-	router.POST("/items", Items.Create)
+  router.POST("/items", Items.Create)
 
-	router.DELETE("/items/:id", Items.Destroy)
+  router.DELETE("/items/:id", Items.Destroy)
 
-	router.PATCH("/items/:id", Items.Update)
+  router.PATCH("/items/:id", Items.Update)
 
-	router.PUT("/items/:id", Items.Update)
+  router.PUT("/items/:id", Items.Update)
 
-	//
-	// /consolidates
-	//
-	router.GET("/consolidates", Consolidates.Index)
+  //
+  // /consolidates
+  //
+  router.GET("/consolidates", Consolidates.Index)
 
-	//
-	// /cashes
-	//
-	router.POST("/cashes", Cashes.Create)
+  //
+  // /cashes
+  //
+  router.POST("/cashes", Cashes.Create)
 
-	router.GET("/cashes", Cashes.Index)
+  router.GET("/cashes", Cashes.Index)
 
-	router.DELETE("/cashes/:id", Cashes.Destroy)
+  router.DELETE("/cashes/:id", Cashes.Destroy)
 
-	router.PATCH("/cashes/:id", Cashes.Update)
+  router.PATCH("/cashes/:id", Cashes.Update)
 
-	return alice.New(ContentTypeMiddleware).Then(router)
+  return alice.New(ContentTypeMiddleware).Then(router)
 }
