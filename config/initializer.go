@@ -11,8 +11,6 @@ import (
 
 var DB gorm.DB
 
-var PORT string
-
 func init() {
 	//
 	// Set TimeZone
@@ -27,15 +25,6 @@ func init() {
 	if dburl == "" {
 		log.Fatalln("$DBURL must be specified")
 	}
-
-  //
-  // Check $PORT
-  //
-  PORT = os.Getenv("PORT")
-
-  if PORT == "" {
-    log.Fatalln("$PORT must be specified")
-  }
 
 	var err error
 
