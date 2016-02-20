@@ -6,6 +6,9 @@ import (
   "encoding/json"
 
   "github.com/julienschmidt/httprouter"
+
+  . "github.com/tksasha/balance/rest/resource"
+  . "github.com/tksasha/balance/rest/collection"
 )
 
 type Handler struct {

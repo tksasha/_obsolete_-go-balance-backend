@@ -2,6 +2,7 @@ package handlers
 
 import (
   . "github.com/tksasha/balance/rest/handler"
+  . "github.com/tksasha/balance/rest/collection"
   . "github.com/tksasha/balance/models"
 )
 

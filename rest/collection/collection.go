@@ -1,4 +1,4 @@
-package handler
+package collection
 
 import (
   "net/url"
