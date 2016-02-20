@@ -9,6 +9,10 @@ import (
   . "github.com/tksasha/balance/config"
 )
 
+func init() {
+  DB.AutoMigrate(&Cash{})
+}
+
 type Cash struct {
   Model
 
@@ -40,7 +44,7 @@ func (c *Cash) Build(values url.Values) {
 // Cash.IsValid
 //
 func (c *Cash) IsValid() bool {
-  c.validatePresenceOfName()
+  ValidatePresenceOf(c, "Name")
 
   c.validateUniquenessOfName()
 
@@ -74,12 +78,6 @@ func (c *Cash) IsUpdate(values url.Values) bool {
     return true
   } else {
     return false
-  }
-}
-
-func (c *Cash) validatePresenceOfName() {
-  if c.Name == "" {
-    c.Errors().Add("name", "can't be blank")
   }
 }
 

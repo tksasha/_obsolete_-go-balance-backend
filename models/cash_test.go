@@ -42,5 +42,5 @@ func TestCashValidatePresenceOfName(t *testing.T) {
 
   assert.False(t, cash.IsValid())
 
-  assert.Equal(t, []string{"can't be blank"}, cash.Errors().Get("name"))
+  assert.Equal(t, []string{"can't be blank"}, cash.Errors().Get("Name"))
 }

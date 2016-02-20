@@ -42,7 +42,7 @@ func (c *Category) Build(values url.Values) {
 }
 
 func (c *Category) IsValid() bool {
-  c.validatePresenceOfName()
+  ValidatePresenceOf(c, "Name")
 
   c.validateUniquenessOfName()
 
@@ -70,12 +70,6 @@ func (c *Category) IsUpdate(values url.Values) bool {
     return true
   } else {
     return false
-  }
-}
-
-func (c *Category) validatePresenceOfName() {
-  if c.Name == "" {
-    c.Errors().Add("name", "can't be blank")
   }
 }
 
