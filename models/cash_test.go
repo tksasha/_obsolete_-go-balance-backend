@@ -15,7 +15,7 @@ func TestCashErrors(t *testing.T) {
   cash.Build(Values)
 
   assert.NotPanics(t, func() {
-    cash.Errors.Add("foo", "is invalid")
+    cash.Errors().Add("foo", "is invalid")
   })
 }
 
@@ -42,5 +42,5 @@ func TestCashValidatePresenceOfName(t *testing.T) {
 
   assert.False(t, cash.IsValid())
 
-  assert.Equal(t, []string{"can't be blank"}, cash.Errors.Get("name"))
+  assert.Equal(t, []string{"can't be blank"}, cash.Errors().Get("name"))
 }

@@ -1,4 +1,4 @@
-package rest
+package handler
 
 import (
   "net/http"
@@ -34,10 +34,14 @@ func (h Handler) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Para
 func (h Handler) Create(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
   resource := h.Resource()
 
-  if resource.IsCreate(values(r, params)) {
+  resource.Build(values(r, params))
+
+  if resource.IsValid() {
+    resource.Create()
+
     render(w, resource, 200)
   } else {
-    render(w, resource.GetErrors(), 422)
+    render(w, resource.Errors(), 422)
   }
 }
 
@@ -70,10 +74,14 @@ func(h Handler) Update(w http.ResponseWriter, r *http.Request, params httprouter
     return
   }
 
-  if resource.IsUpdate(values(r, params)) {
+  resource.Build(values(r, params))
+
+  if resource.IsValid() {
+    resource.Update()
+
     render(w, resource, 200)
   } else {
-    render(w, resource.GetErrors(), 422)
+    render(w, resource.Errors(), 422)
   }
 }
 

@@ -5,8 +5,7 @@ import (
   "strings"
   "time"
 
-  "github.com/tksasha/rest"
-
+  . "github.com/tksasha/balance/rest/model"
   . "github.com/tksasha/balance/config"
 )
 
@@ -15,7 +14,7 @@ func init() {
 }
 
 type Category struct {
-  rest.Model
+  Model
 
   ID        int        `json:"id"`
   Name      string     `json:"name"`
@@ -47,7 +46,7 @@ func (c *Category) IsValid() bool {
 
   c.validateUniquenessOfName()
 
-  return c.Errors.IsEmpty()
+  return c.Errors().IsEmpty()
 }
 
 func (c *Category) IsCreate(values url.Values) bool {
@@ -76,7 +75,7 @@ func (c *Category) IsUpdate(values url.Values) bool {
 
 func (c *Category) validatePresenceOfName() {
   if c.Name == "" {
-    c.Errors.Add("name", "can't be blank")
+    c.Errors().Add("name", "can't be blank")
   }
 }
 
@@ -92,7 +91,7 @@ func (c *Category) validateUniquenessOfName() {
   query.Count(&count)
 
   if count > 0 {
-    c.Errors.Add("name", "already exists")
+    c.Errors().Add("name", "already exists")
   }
 }
 

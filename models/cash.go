@@ -5,13 +5,12 @@ import (
   "strconv"
   "strings"
 
-  "github.com/tksasha/rest"
-
+  . "github.com/tksasha/balance/rest/model"
   . "github.com/tksasha/balance/config"
 )
 
 type Cash struct {
-  rest.Model
+  Model
 
   ID   int
   Name string
@@ -45,7 +44,7 @@ func (c *Cash) IsValid() bool {
 
   c.validateUniquenessOfName()
 
-  return c.Errors.IsEmpty()
+  return c.Errors().IsEmpty()
 }
 
 //
@@ -80,7 +79,7 @@ func (c *Cash) IsUpdate(values url.Values) bool {
 
 func (c *Cash) validatePresenceOfName() {
   if c.Name == "" {
-    c.Errors.Add("name", "can't be blank")
+    c.Errors().Add("name", "can't be blank")
   }
 }
 
@@ -99,7 +98,7 @@ func (c *Cash) validateUniquenessOfName() {
   query.Count(&count)
 
   if count > 0 {
-    c.Errors.Add("name", "already exists")
+    c.Errors().Add("name", "already exists")
   }
 }
 

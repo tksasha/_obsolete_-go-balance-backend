@@ -4,20 +4,19 @@ import (
   "encoding/json"
   "net/url"
 
-  "github.com/tksasha/rest"
-
+  . "github.com/tksasha/balance/rest/model"
   . "github.com/tksasha/balance/config"
 )
 
 type Recovery struct {
-  rest.Model
+  Model
 }
 
 func (r *Recovery) IsCreate(values url.Values) bool {
   var category Category
 
   if DB.Unscoped().First(&category, values["category_id"]).RecordNotFound() {
-    r.Errors.Add("category_id", "can't be blank")
+    r.Errors().Add("category_id", "can't be blank")
 
     return false
   } else {

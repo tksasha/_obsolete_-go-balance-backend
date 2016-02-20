@@ -7,8 +7,8 @@ import (
   "time"
 
   "github.com/tksasha/date"
-  "github.com/tksasha/rest"
 
+  . "github.com/tksasha/balance/rest/model"
   . "github.com/tksasha/balance/config"
 )
 
@@ -17,7 +17,7 @@ func init() {
 }
 
 type Item struct {
-  rest.Model
+  Model
 
   ID          int
   Date        time.Time
@@ -80,7 +80,7 @@ func (i *Item) IsValid() bool {
 
   i.validatePresenceOfDate()
 
-  return i.Errors.IsEmpty()
+  return i.Errors().IsEmpty()
 }
 
 //
@@ -130,7 +130,7 @@ func (i Item) MarshalJSON() ([]byte, error) {
 
 func (i *Item) validateSumGreaterThanZero() {
   if i.Sum == 0.0 {
-    i.Errors.Add("sum", "must be greater than 0")
+    i.Errors().Add("sum", "must be greater than 0")
   }
 }
 
@@ -138,13 +138,13 @@ func (i *Item) validatePresenceOfCategory() {
   var category Category
 
   if DB.First(&category, i.CategoryID).RecordNotFound() {
-    i.Errors.Add("category_id", "can't be blank")
+    i.Errors().Add("category_id", "can't be blank")
   }
 }
 
 func (i *Item) validatePresenceOfDate() {
   if i.Date.IsZero() {
-    i.Errors.Add("date", "can't be blank")
+    i.Errors().Add("date", "can't be blank")
   }
 }
 

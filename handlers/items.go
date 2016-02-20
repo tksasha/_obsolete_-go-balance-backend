@@ -1,16 +1,15 @@
 package handlers
 
 import (
-  "github.com/tksasha/rest"
-
+  . "github.com/tksasha/balance/rest/handler"
   . "github.com/tksasha/balance/models"
 )
 
-var Items *rest.Handler
+var Items *Handler
 
 func init() {
-  Items = &rest.Handler{
-    Collection: func() rest.Collection { return new(ItemCollection) },
-    Resource:   func() rest.Resource { return new(Item) },
+  Items = &Handler{
+    Collection: func() Collection { return new(ItemCollection) },
+    Resource:   func() Resource { return new(Item) },
   }
 }

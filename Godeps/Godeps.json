@@ -43,10 +43,6 @@
 		{
 			"ImportPath": "github.com/tksasha/date",
 			"Rev": "7085884451d3b24280c0904298d1161df6b8b8ae"
-		},
-		{
-			"ImportPath": "github.com/tksasha/rest",
-			"Rev": "2ea580c848be4f57eb782259cdd2cbb8f90db9ca"
 		}
 	]
 }
