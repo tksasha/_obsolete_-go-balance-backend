@@ -128,12 +128,6 @@ func (i Item) MarshalJSON() ([]byte, error) {
   return json.Marshal(d)
 }
 
-func (i *Item) validateSumGreaterThanZero() {
-  if i.Sum == 0.0 {
-    i.Errors().Add("sum", "must be greater than 0")
-  }
-}
-
 func (i *Item) validatePresenceOfCategory() {
   var category Category
 
