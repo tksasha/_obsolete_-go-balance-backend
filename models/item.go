@@ -9,6 +9,7 @@ import (
   "github.com/tksasha/date"
 
   . "github.com/tksasha/balance/rest/model"
+  . "github.com/tksasha/balance/rest/validations"
   . "github.com/tksasha/balance/config"
 )
 

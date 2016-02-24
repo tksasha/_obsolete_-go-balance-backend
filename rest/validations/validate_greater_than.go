@@ -1,4 +1,4 @@
-package model
+package validations
 
 import (
   "reflect"
