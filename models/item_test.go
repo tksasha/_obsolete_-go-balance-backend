@@ -124,7 +124,7 @@ func TestValidateSumGreaterThanZero(t *testing.T) {
 
   assert.False(t, item.IsValid())
 
-  assert.Equal(t, []string{"can't be less or equal `0.000000`"}, item.Errors().Get("Sum"))
+  assert.Equal(t, []string{"can't be less than or equal `0.000000`"}, item.Errors().Get("Sum"))
 }
 
 func TestValidatePresenceOfCategory(t *testing.T) {
