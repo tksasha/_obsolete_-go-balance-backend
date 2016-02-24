@@ -2,21 +2,11 @@ package validations_test
 
 import (
   "testing"
-  "time"
 
   "github.com/stretchr/testify/assert"
 
   . "github.com/tksasha/balance/rest/validations"
-  . "github.com/tksasha/balance/rest/model"
 )
-
-type M struct {
-  Model
-
-  Name      string
-  Date      time.Time
-  Age       int
-}
 
 func TestValidatePresenceOfString(t *testing.T) {
   m := new(M)
