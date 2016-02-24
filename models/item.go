@@ -74,7 +74,7 @@ func (item *Item) Build(values url.Values) {
 // Item.IsValid()
 //
 func (i *Item) IsValid() bool {
-  i.validateSumGreaterThanZero()
+  ValidateGreaterThan(i, "Sum", 0.0)
 
   i.validatePresenceOfCategory()
 
