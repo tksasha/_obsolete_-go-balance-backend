@@ -148,7 +148,7 @@ func TestValidatePresenceOfDate(t *testing.T) {
 
   assert.False(t, item.IsValid())
 
-  assert.Equal(t, []string{"can't be blank"}, item.Errors().Get("date"))
+  assert.Equal(t, []string{"can't be blank"}, item.Errors().Get("Date"))
 }
 
 func TestValidatePresenceOfDateWithEmptyString(t *testing.T) {
@@ -160,5 +160,5 @@ func TestValidatePresenceOfDateWithEmptyString(t *testing.T) {
 
   assert.False(t, item.IsValid())
 
-  assert.Equal(t, []string{"can't be blank"}, item.Errors().Get("date"))
+  assert.Equal(t, []string{"can't be blank"}, item.Errors().Get("Date"))
 }

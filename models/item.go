@@ -78,7 +78,7 @@ func (i *Item) IsValid() bool {
 
   i.validatePresenceOfCategory()
 
-  i.validatePresenceOfDate()
+  ValidatePresenceOf(i, "Date")
 
   return i.Errors().IsEmpty()
 }
@@ -139,12 +139,6 @@ func (i *Item) validatePresenceOfCategory() {
 
   if DB.First(&category, i.CategoryID).RecordNotFound() {
     i.Errors().Add("category_id", "can't be blank")
-  }
-}
-
-func (i *Item) validatePresenceOfDate() {
-  if i.Date.IsZero() {
-    i.Errors().Add("date", "can't be blank")
   }
 }
 

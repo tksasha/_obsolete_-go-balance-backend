@@ -38,5 +38,5 @@ func init() {
   //
   // Show SQL in LOG
   //
-  DB.LogMode(true)
+  DB.LogMode(false)
 }
