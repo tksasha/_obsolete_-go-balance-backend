@@ -7,7 +7,7 @@ import (
   . "github.com/tksasha/balance/rest/resource"
 )
 
-func ValidateEmail(resource Resource) {
+func ValidateFormatOfEmail(resource Resource) {
   value := reflect.ValueOf(resource).Elem()
 
   value = reflect.Indirect(value).FieldByName("Email")

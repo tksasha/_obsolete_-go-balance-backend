@@ -10,7 +10,7 @@ import (
 func TestValidateEmailWithEmptyValue(t *testing.T) {
   m := new(M)
 
-  ValidateEmail(m)
+  ValidateFormatOfEmail(m)
 
   assert.Contains(t, m.Errors().Get("Email"), "is invalid")
 }
@@ -18,7 +18,7 @@ func TestValidateEmailWithEmptyValue(t *testing.T) {
 func TestValidateEmailWithInvalidValue(t *testing.T) {
   m := &M{ Email: "invalid" }
 
-  ValidateEmail(m)
+  ValidateFormatOfEmail(m)
 
   assert.Contains(t, m.Errors().Get("Email"), "is invalid")
 }
@@ -26,7 +26,7 @@ func TestValidateEmailWithInvalidValue(t *testing.T) {
 func TestValidateEmailWithValidValue(t *testing.T) {
   m := &M{ Email: "one@digits.com" }
 
-  ValidateEmail(m)
+  ValidateFormatOfEmail(m)
 
   assert.NotContains(t, m.Errors().Get("Email"), "is invalid")
 }
