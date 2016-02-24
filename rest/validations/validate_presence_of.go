@@ -23,5 +23,9 @@ func ValidatePresenceOf(resource Resource, attribute string) {
     if value.Interface().(time.Time).IsZero() {
       resource.Errors().Add(attribute, message)
     }
+  case "int":
+    if value.Int() == 0 {
+      resource.Errors().Add(attribute, message)
+    }
   }
 }
