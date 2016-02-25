@@ -7,6 +7,7 @@ import (
 
   . "github.com/tksasha/balance/rest/router"
   . "github.com/tksasha/balance/config"
+  _ "github.com/tksasha/balance/handlers"
 )
 
 func main() {

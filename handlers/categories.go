@@ -20,8 +20,6 @@ func init() {
 
   Router.POST("/categories", Categories.Create)
 
-  Router.POST("/categories/:category_id/recovery", Recoveries.Create)
-
   Router.PATCH("/categories/:id", Categories.Update)
 
   Router.PUT("/categories/:id", Categories.Update)
