@@ -2,6 +2,8 @@ package errors
 
 import (
   "encoding/json"
+
+  "github.com/serenize/snaker"
 )
 
 type Errors struct {
@@ -31,5 +33,11 @@ func (e *Errors) IsEmpty() bool {
 }
 
 func (e Errors) MarshalJSON() ([]byte, error) {
+  for key, value := range e.collection {
+    delete(e.collection, key)
+
+    e.collection[snaker.CamelToSnake(key)] = value
+  }
+
   return json.Marshal(e.collection)
 }

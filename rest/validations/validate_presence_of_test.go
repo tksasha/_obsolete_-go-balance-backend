@@ -11,9 +11,9 @@ import (
 func TestValidatePresenceOfString(t *testing.T) {
   m := new(M)
 
-  ValidatePresenceOf(m, "Name")
+  ValidatePresenceOf(m, "FullName")
 
-  assert.Equal(t, []string{"can't be blank"}, m.Errors().Get("Name"))
+  assert.Contains(t, m.Errors().Get("FullName"), "can't be blank")
 }
 
 func TestValidatePresenceOfTime(t *testing.T) {
@@ -21,7 +21,7 @@ func TestValidatePresenceOfTime(t *testing.T) {
 
   ValidatePresenceOf(m, "Date")
 
-  assert.Equal(t, []string{"can't be blank"}, m.Errors().Get("Date"))
+  assert.Contains(t, m.Errors().Get("Date"), "can't be blank")
 }
 
 func TestValidatePresenceOfInt(t *testing.T) {
@@ -29,5 +29,5 @@ func TestValidatePresenceOfInt(t *testing.T) {
 
   ValidatePresenceOf(m, "Age")
 
-  assert.Equal(t, []string{"can't be blank"}, m.Errors().Get("Age"))
+  assert.Contains(t, m.Errors().Get("Age"), "can't be blank")
 }

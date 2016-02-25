@@ -9,7 +9,7 @@ import (
 type M struct {
   Model
 
-  Name      string
+  FullName  string
   Date      time.Time
   Age       int
   Email     string

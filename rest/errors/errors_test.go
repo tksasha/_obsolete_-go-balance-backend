@@ -12,9 +12,9 @@ import (
 func TestAdd(t *testing.T) {
   var e Errors
 
-  e.Add("name", "can't be blank")
+  e.Add("Name", "can't be blank")
 
-  assert.Equal(t, []string{ "can't be blank" }, e.Get("name"))
+  assert.Equal(t, []string{ "can't be blank" }, e.Get("Name"))
 }
 
 func TestGetWithUnexistedKey(t *testing.T) {
@@ -36,9 +36,9 @@ func TestIsEmpty(t *testing.T) {
 func TestMarshalJSON(t *testing.T) {
   var e Errors
 
-  e.Add("name", "can't be blank")
+  e.Add("FullName", "can't be blank")
 
   marshaled, _ := json.Marshal(e)
 
-  assert.Equal(t, string(marshaled), `{"name":["can't be blank"]}`)
+  assert.Equal(t, string(marshaled), `{"full_name":["can't be blank"]}`)
 }

@@ -115,7 +115,7 @@ func TestBuildWithEmptyValues(t *testing.T) {
   assert.Equal(t, "", item.Description)
 }
 
-func TestValidateSumGreaterThanZero(t *testing.T) {
+func TestItemValidateSumGreaterThanZero(t *testing.T) {
   item := new(Item)
 
   Values.Set("item[sum]", "")
@@ -139,7 +139,7 @@ func TestValidatePresenceOfCategory(t *testing.T) {
   assert.Equal(t, []string{"can't be blank"}, item.Errors().Get("category_id"))
 }
 
-func TestValidatePresenceOfDate(t *testing.T) {
+func TestItemValidatePresenceOfDate(t *testing.T) {
   item := new(Item)
 
   delete(Values, "item[date]")
@@ -151,7 +151,7 @@ func TestValidatePresenceOfDate(t *testing.T) {
   assert.Equal(t, []string{"can't be blank"}, item.Errors().Get("Date"))
 }
 
-func TestValidatePresenceOfDateWithEmptyString(t *testing.T) {
+func TestItemValidatePresenceOfDateWithEmptyString(t *testing.T) {
   item := Item{Date: time.Now()}
 
   Values.Set("item[date]", "")
