@@ -5,8 +5,8 @@ import (
   "net/http"
   "os"
 
+  . "github.com/tksasha/balance/rest/router"
   . "github.com/tksasha/balance/config"
-  . "github.com/tksasha/balance/router"
 )
 
 func main() {
@@ -21,5 +21,5 @@ func main() {
   //
   // Serve HTTP Queries
   //
-  log.Fatalln(http.ListenAndServe(":" + port, NewRouter()))
+  log.Fatalln(http.ListenAndServe(":" + port, Router))
 }

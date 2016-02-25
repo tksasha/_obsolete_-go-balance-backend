@@ -3,6 +3,7 @@ package handlers
 import (
   . "github.com/tksasha/balance/rest/handler"
   . "github.com/tksasha/balance/rest/collection"
+  . "github.com/tksasha/balance/rest/router"
   . "github.com/tksasha/balance/models"
 )
 
@@ -12,4 +13,6 @@ func init() {
   Consolidates = &Handler{
     Collection: func() Collection { return new(ConsolidateCollection) },
   }
+
+  Router.GET("/consolidates", Consolidates.Index)
 }
