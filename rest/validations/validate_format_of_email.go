@@ -7,12 +7,12 @@ import (
   . "github.com/tksasha/balance/rest/resource"
 )
 
-func ValidateFormatOfEmail(resource Resource) {
+func ValidateFormatOfEmail(resource Resource, attribute string) {
   value := reflect.ValueOf(resource).Elem()
 
-  value = reflect.Indirect(value).FieldByName("Email")
+  value = reflect.Indirect(value).FieldByName(attribute)
 
   if govalidator.IsEmail(value.String()) == false {
-    resource.Errors().Add("Email", "is invalid")
+    resource.Errors().Add(attribute, "is not email")
   }
 }
