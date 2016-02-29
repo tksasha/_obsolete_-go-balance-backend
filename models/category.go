@@ -6,7 +6,6 @@ import (
   "time"
 
   . "github.com/tksasha/balance/rest/model"
-  . "github.com/tksasha/balance/rest/validations"
   . "github.com/tksasha/balance/config"
 )
 
@@ -18,7 +17,7 @@ type Category struct {
   Model
 
   ID        int        `json:"id"`
-  Name      string     `json:"name"`
+  Name      string     `json:"name"     valid:"present"`
   Income    bool       `json:"income"`
   CreatedAt time.Time  `json:"-"`
   UpdatedAt time.Time  `json:"-"`
@@ -43,8 +42,6 @@ func (c *Category) Build(values url.Values) {
 }
 
 func (c *Category) IsValid() bool {
-  ValidatePresenceOf(c, "Name")
-
   c.validateUniquenessOfName()
 
   return c.Errors().IsEmpty()

@@ -7,6 +7,7 @@ import (
 
   . "github.com/tksasha/balance/config/test"
   . "github.com/tksasha/balance/models"
+  . "github.com/tksasha/balance/rest/validate"
 )
 
 func TestCashErrors(t *testing.T) {
@@ -39,6 +40,8 @@ func TestCashValidatePresenceOfName(t *testing.T) {
   Values.Set("cash[name]", "")
 
   cash.Build(Values)
+
+  Validate(cash)
 
   assert.False(t, cash.IsValid())
 

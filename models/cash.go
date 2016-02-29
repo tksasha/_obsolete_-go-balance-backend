@@ -6,7 +6,6 @@ import (
   "strings"
 
   . "github.com/tksasha/balance/rest/model"
-  . "github.com/tksasha/balance/rest/validations"
   . "github.com/tksasha/balance/config"
 )
 
@@ -18,7 +17,7 @@ type Cash struct {
   Model
 
   ID   int
-  Name string
+  Name string   `valid:"present"`
   Sum  float64
 }
 
@@ -45,8 +44,6 @@ func (c *Cash) Build(values url.Values) {
 // Cash.IsValid
 //
 func (c *Cash) IsValid() bool {
-  ValidatePresenceOf(c, "Name")
-
   c.validateUniquenessOfName()
 
   return c.Errors().IsEmpty()

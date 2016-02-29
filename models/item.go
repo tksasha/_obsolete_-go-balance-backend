@@ -9,7 +9,6 @@ import (
   "github.com/tksasha/date"
 
   . "github.com/tksasha/balance/rest/model"
-  . "github.com/tksasha/balance/rest/validations"
   . "github.com/tksasha/balance/config"
 )
 
@@ -21,7 +20,7 @@ type Item struct {
   Model
 
   ID          int
-  Date        time.Time
+  Date        time.Time `valid:"present"`
   Sum         float64
   Description string
   Category    Category
@@ -75,11 +74,9 @@ func (item *Item) Build(values url.Values) {
 // Item.IsValid()
 //
 func (i *Item) IsValid() bool {
-  ValidateGreaterThan(i, "Sum", 0.0)
+  //ValidateGreaterThan(i, "Sum", 0.0)
 
   i.validatePresenceOfCategory()
-
-  ValidatePresenceOf(i, "Date")
 
   return i.Errors().IsEmpty()
 }
