@@ -21,7 +21,7 @@ type Item struct {
 
   ID          int
   Date        time.Time `valid:"present"`
-  Sum         float64
+  Sum         float64   `valid:"greater_than(0)"`
   Description string
   Category    Category
   CategoryID  int

@@ -89,6 +89,19 @@ func lengthExactly(resource Resource, attribute string, tag string) {
 }
 
 func greaterThan(resource Resource, attribute string, tag string) {
+  value := reflect.ValueOf(resource).Elem()
+
+  value = reflect.Indirect(value).FieldByName(attribute)
+
+  switch value.Type().Name() {
+  case "int":
+    greaterThanForInt(resource, attribute, tag)
+  case "float64":
+    greaterThanForFloat(resource, attribute, tag)
+  }
+}
+
+func greaterThanForInt(resource Resource, attribute string, tag string) {
   mask := regexp.MustCompile(`greater_than\((\d+)\)`)
 
   if mask.MatchString(tag) {
@@ -98,6 +111,22 @@ func greaterThan(resource Resource, attribute string, tag string) {
 
     if value, err = strconv.Atoi(mask.FindStringSubmatch(tag)[1]); err != nil {
       value = 0
+    }
+
+    ValidateGreaterThan(resource, attribute, value)
+  }
+}
+
+func greaterThanForFloat(resource Resource, attribute string, tag string) {
+  mask := regexp.MustCompile(`greater_than\((\d+|\d+\.\d+)\)`)
+
+  if mask.MatchString(tag) {
+    var value float64
+
+    var err error
+
+    if value, err = strconv.ParseFloat(mask.FindStringSubmatch(tag)[1], 64); err != nil {
+      value = 0.0
     }
 
     ValidateGreaterThan(resource, attribute, value)

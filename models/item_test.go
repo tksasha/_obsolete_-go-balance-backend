@@ -117,11 +117,6 @@ func TestBuildWithEmptyValues(t *testing.T) {
 }
 
 func TestItemValidateSumGreaterThanZero(t *testing.T) {
-  //
-  // TODO: delme
-  //
-  t.Skip()
-
   item := new(Item)
 
   Values.Set("item[sum]", "")
