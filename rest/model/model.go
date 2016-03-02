@@ -12,14 +12,12 @@ type Model struct {
 
 func (m *Model) Errors() *errors.Errors { return &m.errors }
 
-func (*Model) Find(id string) error { return nil }
+func (*Model) Find(id string) error { panic("Isn't implemented!"); return nil }
 
-func (*Model) Build(url.Values) {}
+func (*Model) Build(url.Values) { panic("Isn't implemented!") }
 
-func (*Model) Create() {}
+func (*Model) Create() { panic("Isn't implemented!") }
 
-func (*Model) Update() {}
+func (*Model) Update() { panic("Isn't implemented!") }
 
-func (*Model) Destroy() {}
-
-func (*Model) IsValid() bool { return true }
+func (*Model) Delete() { panic("Isn't implemented!") }

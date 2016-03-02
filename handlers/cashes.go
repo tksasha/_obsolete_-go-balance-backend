@@ -20,7 +20,7 @@ func init() {
 
   Router.GET("/cashes", Cashes.Index)
 
-  Router.DELETE("/cashes/:id", Cashes.Destroy)
+  Router.DELETE("/cashes/:id", Cashes.Delete)
 
   Router.PATCH("/cashes/:id", Cashes.Update)
 }

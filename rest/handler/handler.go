@@ -9,6 +9,7 @@ import (
 
   . "github.com/tksasha/balance/rest/resource"
   . "github.com/tksasha/balance/rest/collection"
+  . "github.com/tksasha/balance/rest/validate"
 )
 
 type Handler struct {
@@ -39,7 +40,9 @@ func (h Handler) Create(w http.ResponseWriter, r *http.Request, params httproute
 
   resource.Build(values(r, params))
 
-  if resource.IsValid() {
+  Validate(resource)
+
+  if resource.Errors().IsEmpty() {
     resource.Create()
 
     render(w, resource, 200)
@@ -51,7 +54,7 @@ func (h Handler) Create(w http.ResponseWriter, r *http.Request, params httproute
 //
 // DELETE - Destroy Resource
 //
-func (h Handler) Destroy(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+func (h Handler) Delete(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
   resource := h.Resource()
 
   if err := resource.Find(params.ByName("id")); err != nil && err.Error() == "record not found" {
@@ -60,7 +63,7 @@ func (h Handler) Destroy(w http.ResponseWriter, r *http.Request, params httprout
     return
   }
 
-  resource.Destroy()
+  resource.Delete()
 
   render(w, "OK", 200)
 }
@@ -79,7 +82,9 @@ func(h Handler) Update(w http.ResponseWriter, r *http.Request, params httprouter
 
   resource.Build(values(r, params))
 
-  if resource.IsValid() {
+  Validate(resource)
+
+  if resource.Errors().IsEmpty() {
     resource.Update()
 
     render(w, resource, 200)

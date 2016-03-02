@@ -20,7 +20,7 @@ func init() {
 
   Router.POST("/items", Items.Create)
 
-  Router.DELETE("/items/:id", Items.Destroy)
+  Router.DELETE("/items/:id", Items.Delete)
 
   Router.PATCH("/items/:id", Items.Update)
 

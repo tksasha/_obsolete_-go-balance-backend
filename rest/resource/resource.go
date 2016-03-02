@@ -11,7 +11,6 @@ type Resource interface {
   Build(url.Values)
   Create()
   Update()
-  Destroy()
+  Delete()
   Errors() *errors.Errors
-  IsValid() bool
 }

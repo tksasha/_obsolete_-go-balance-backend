@@ -24,5 +24,5 @@ func init() {
 
   Router.PUT("/categories/:id", Categories.Update)
 
-  Router.DELETE("/categories/:id", Categories.Destroy)
+  Router.DELETE("/categories/:id", Categories.Delete)
 }

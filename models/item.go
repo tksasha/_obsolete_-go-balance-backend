@@ -71,44 +71,12 @@ func (item *Item) Build(values url.Values) {
 }
 
 //
-// Item.IsValid()
+// Item.IsValid() [DEPRECATED]
 //
 func (i *Item) IsValid() bool {
-  //ValidateGreaterThan(i, "Sum", 0.0)
-
   i.validatePresenceOfCategory()
 
   return i.Errors().IsEmpty()
-}
-
-//
-// Item.IsCreate()
-//
-func (i *Item) IsCreate(values url.Values) bool {
-  i.Build(values)
-
-  if i.IsValid() {
-    DB.Create(i)
-
-    return true
-  } else {
-    return false
-  }
-}
-
-//
-// Item.IsUpdate
-//
-func (i *Item) IsUpdate(values url.Values) bool {
-  i.Build(values)
-
-  if i.IsValid() {
-    DB.Save(i)
-
-    return true
-  } else {
-    return false
-  }
 }
 
 //

@@ -26,6 +26,9 @@ type Category struct {
 
 type CategoryCollection []Category
 
+//
+// Category.Build
+//
 func (c *Category) Build(values url.Values) {
   if name := values.Get("category[name]"); name != "" {
     c.Name = name
@@ -41,36 +44,46 @@ func (c *Category) Build(values url.Values) {
   }
 }
 
+//
+// Category.Create
+//
+func (c *Category) Create() {
+  DB.Create(c)
+}
+
+//
+// Category.Update
+//
+func (c *Category) Update() {
+  DB.Save(c)
+}
+
+//
+// Category.Delete
+//
+func (c *Category) Delete() {
+  DB.Delete(c)
+}
+
+//
+// Category.Find
+//
+func (c *Category) Find(id string) error {
+  return DB.Where("id=?", id).First(c).Error
+}
+
+//
+// DEPRECATED
+//
 func (c *Category) IsValid() bool {
   c.validateUniquenessOfName()
 
   return c.Errors().IsEmpty()
 }
 
-func (c *Category) IsCreate(values url.Values) bool {
-  c.Build(values)
-
-  if c.IsValid() {
-    DB.Create(c)
-
-    return true
-  } else {
-    return false
-  }
-}
-
-func (c *Category) IsUpdate(values url.Values) bool {
-  c.Build(values)
-
-  if c.IsValid() {
-    DB.Save(c)
-
-    return true
-  } else {
-    return false
-  }
-}
-
+//
+// DEPRECATED
+//
 func (c *Category) validateUniquenessOfName() {
   var count int
 
