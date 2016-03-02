@@ -41,42 +41,12 @@ func (c *Cash) Build(values url.Values) {
 }
 
 //
-// Cash.IsValid
+// DEPRECATED
 //
 func (c *Cash) IsValid() bool {
   c.validateUniquenessOfName()
 
   return c.Errors().IsEmpty()
-}
-
-//
-// Cash.IsCreate
-//
-func (c *Cash) IsCreate(values url.Values) bool {
-  c.Build(values)
-
-  if c.IsValid() {
-    DB.Create(c)
-
-    return true
-  } else {
-    return false
-  }
-}
-
-//
-// Cash.IsUpdate
-//
-func (c *Cash) IsUpdate(values url.Values) bool {
-  c.Build(values)
-
-  if c.IsValid() {
-    DB.Save(c)
-
-    return true
-  } else {
-    return false
-  }
 }
 
 //
@@ -113,8 +83,22 @@ func (c *Cash) Find(id string) error {
 }
 
 //
-// Cash.Destroy
+// Cash.Delete
 //
-func (c *Cash) Destroy() {
+func (c *Cash) Delete() {
   DB.Delete(c)
+}
+
+//
+// Cash.Create
+//
+func (c *Cash) Create() {
+  DB.Create(c)
+}
+
+//
+// Cash.Update
+//
+func (c *Cash) Update() {
+  DB.Save(c)
 }
