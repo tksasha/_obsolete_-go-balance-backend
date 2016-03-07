@@ -6,7 +6,8 @@ import (
   "time"
 
   . "github.com/tksasha/balance/rest/model"
-  . "github.com/tksasha/balance/config"
+  . "github.com/tksasha/balance/rest/db"
+  _ "github.com/tksasha/balance/config"
 )
 
 func init() {
@@ -63,13 +64,6 @@ func (c *Category) Update() {
 //
 func (c *Category) Delete() {
   DB.Delete(c)
-}
-
-//
-// Category.Find
-//
-func (c *Category) Find(id string) error {
-  return DB.Where("id=?", id).First(c).Error
 }
 
 //

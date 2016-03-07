@@ -57,7 +57,9 @@ func (h Handler) Create(w http.ResponseWriter, r *http.Request, params httproute
 func (h Handler) Delete(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
   resource := h.Resource()
 
-  if err := resource.Find(params.ByName("id")); err != nil && err.Error() == "record not found" {
+  err := Find(resource, params.ByName("id"))
+
+  if err != nil && err.Error() == "record not found" {
     http.NotFound(w, r)
 
     return
@@ -74,7 +76,9 @@ func (h Handler) Delete(w http.ResponseWriter, r *http.Request, params httproute
 func(h Handler) Update(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
   resource := h.Resource()
 
-  if err := resource.Find(params.ByName("id")); err != nil && err.Error() == "record not found" {
+  err := Find(resource, params.ByName("id"))
+
+  if err != nil && err.Error() == "record not found" {
     http.NotFound(w, r)
 
     return

@@ -6,7 +6,8 @@ import (
   "os"
 
   . "github.com/tksasha/balance/rest/router"
-  . "github.com/tksasha/balance/config"
+  . "github.com/tksasha/balance/rest/db"
+  _ "github.com/tksasha/balance/config"
   _ "github.com/tksasha/balance/handlers"
 )
 

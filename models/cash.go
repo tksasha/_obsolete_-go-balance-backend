@@ -6,7 +6,8 @@ import (
   "strings"
 
   . "github.com/tksasha/balance/rest/model"
-  . "github.com/tksasha/balance/config"
+  . "github.com/tksasha/balance/rest/db"
+  _ "github.com/tksasha/balance/config"
 )
 
 func init() {
@@ -73,13 +74,6 @@ func (c *Cash) validateUniquenessOfName() {
 //
 func (c *CashCollection) Search(values url.Values) {
   DB.Find(c)
-}
-
-//
-// Cash.Find
-//
-func (c *Cash) Find(id string) error {
-  return DB.First(c, id).Error
 }
 
 //

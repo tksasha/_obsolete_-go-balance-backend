@@ -12,8 +12,6 @@ type Model struct {
 
 func (m *Model) Errors() *errors.Errors { return &m.errors }
 
-func (*Model) Find(id string) error { panic("Isn't implemented!"); return nil }
-
 func (*Model) Build(url.Values) { panic("Isn't implemented!") }
 
 func (*Model) Create() { panic("Isn't implemented!") }

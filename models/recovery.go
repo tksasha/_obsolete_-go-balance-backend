@@ -5,7 +5,8 @@ import (
   "net/url"
 
   . "github.com/tksasha/balance/rest/model"
-  . "github.com/tksasha/balance/config"
+  . "github.com/tksasha/balance/rest/db"
+  _ "github.com/tksasha/balance/config"
 )
 
 type Recovery struct {

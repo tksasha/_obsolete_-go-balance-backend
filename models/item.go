@@ -9,7 +9,8 @@ import (
   "github.com/tksasha/date"
 
   . "github.com/tksasha/balance/rest/model"
-  . "github.com/tksasha/balance/config"
+  . "github.com/tksasha/balance/rest/db"
+  _ "github.com/tksasha/balance/config"
 )
 
 func init() {

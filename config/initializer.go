@@ -7,9 +7,9 @@ import (
 
   "github.com/jinzhu/gorm"
   _ "github.com/lib/pq"
-)
 
-var DB gorm.DB
+  . "github.com/tksasha/balance/rest/db"
+)
 
 func init() {
   //
