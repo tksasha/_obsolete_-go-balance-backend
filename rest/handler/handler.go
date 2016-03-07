@@ -43,7 +43,7 @@ func (h Handler) Create(w http.ResponseWriter, r *http.Request, params httproute
   Validate(resource)
 
   if resource.Errors().IsEmpty() {
-    resource.Create()
+    Create(resource)
 
     render(w, resource, 200)
   } else {

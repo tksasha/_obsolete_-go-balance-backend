@@ -13,6 +13,9 @@ type Recovery struct {
   Model
 }
 
+//
+// Is it need?
+//
 func (r *Recovery) IsCreate(values url.Values) bool {
   var category Category
 

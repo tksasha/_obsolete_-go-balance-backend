@@ -9,13 +9,16 @@ import (
 
 type Resource interface {
   Build(url.Values)
-  Create()
   Update()
   Errors() *errors.Errors
 }
 
 func Find(resource Resource, id string) error {
   return DB.First(resource, id).Error
+}
+
+func Create(resource Resource) {
+  DB.Create(resource)
 }
 
 func Delete(resource Resource) {

@@ -46,13 +46,6 @@ func (c *Category) Build(values url.Values) {
 }
 
 //
-// Category.Create
-//
-func (c *Category) Create() {
-  DB.Create(c)
-}
-
-//
 // Category.Update
 //
 func (c *Category) Update() {

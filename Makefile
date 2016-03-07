@@ -19,7 +19,7 @@ categories.index:
 	curl $(categories) | jq .
 
 categories.create:
-	curl -d 'category[name]=$(name)' $(categories) | jq .
+	curl -d "$(params)" $(categories) | jq .
 
 categories.delete:
 	curl -X DELETE $(categories)/$(id) | jq .
