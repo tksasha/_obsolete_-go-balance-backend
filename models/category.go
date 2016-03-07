@@ -60,13 +60,6 @@ func (c *Category) Update() {
 }
 
 //
-// Category.Delete
-//
-func (c *Category) Delete() {
-  DB.Delete(c)
-}
-
-//
 // DEPRECATED
 //
 func (c *Category) IsValid() bool {

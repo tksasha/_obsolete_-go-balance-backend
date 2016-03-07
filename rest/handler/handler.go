@@ -65,7 +65,7 @@ func (h Handler) Delete(w http.ResponseWriter, r *http.Request, params httproute
     return
   }
 
-  resource.Delete()
+  Delete(resource)
 
   render(w, "OK", 200)
 }

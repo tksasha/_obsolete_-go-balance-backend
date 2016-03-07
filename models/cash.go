@@ -77,13 +77,6 @@ func (c *CashCollection) Search(values url.Values) {
 }
 
 //
-// Cash.Delete
-//
-func (c *Cash) Delete() {
-  DB.Delete(c)
-}
-
-//
 // Cash.Create
 //
 func (c *Cash) Create() {

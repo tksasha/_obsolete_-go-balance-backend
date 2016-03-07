@@ -11,10 +11,13 @@ type Resource interface {
   Build(url.Values)
   Create()
   Update()
-  Delete()
   Errors() *errors.Errors
 }
 
 func Find(resource Resource, id string) error {
   return DB.First(resource, id).Error
+}
+
+func Delete(resource Resource) {
+  DB.Delete(resource)
 }
