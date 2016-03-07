@@ -89,7 +89,7 @@ func(h Handler) Update(w http.ResponseWriter, r *http.Request, params httprouter
   Validate(resource)
 
   if resource.Errors().IsEmpty() {
-    resource.Update()
+    Update(resource)
 
     render(w, resource, 200)
   } else {

@@ -46,13 +46,6 @@ func (c *Category) Build(values url.Values) {
 }
 
 //
-// Category.Update
-//
-func (c *Category) Update() {
-  DB.Save(c)
-}
-
-//
 // DEPRECATED
 //
 func (c *Category) IsValid() bool {

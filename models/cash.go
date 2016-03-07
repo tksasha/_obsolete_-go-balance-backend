@@ -42,7 +42,7 @@ func (c *Cash) Build(values url.Values) {
 }
 
 //
-// DEPRECATED
+// TODO: DEPRECATED
 //
 func (c *Cash) IsValid() bool {
   c.validateUniquenessOfName()
@@ -51,7 +51,7 @@ func (c *Cash) IsValid() bool {
 }
 
 //
-// TODO: test me
+// TODO: DEPRECATED
 //
 func (c *Cash) validateUniquenessOfName() {
   var count int
@@ -74,11 +74,4 @@ func (c *Cash) validateUniquenessOfName() {
 //
 func (c *CashCollection) Search(values url.Values) {
   DB.Find(c)
-}
-
-//
-// Cash.Update
-//
-func (c *Cash) Update() {
-  DB.Save(c)
 }

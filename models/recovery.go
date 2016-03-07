@@ -32,6 +32,9 @@ func (r *Recovery) IsCreate(values url.Values) bool {
   }
 }
 
+//
+// Is it need?
+//
 func (r *Recovery) IsUpdate(values url.Values) bool {
   return true
 }
