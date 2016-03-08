@@ -3,7 +3,6 @@ package models
 import (
   "net/url"
   "strconv"
-  "strings"
 
   . "github.com/tksasha/balance/rest/model"
   . "github.com/tksasha/balance/rest/db"
@@ -18,7 +17,7 @@ type Cash struct {
   Model
 
   ID   int
-  Name string   `valid:"present"`
+  Name string   `valid:"present,unique"`
   Sum  float64
 }
 
@@ -38,34 +37,6 @@ func (c *Cash) Build(values url.Values) {
     } else {
       c.Sum = 0.0
     }
-  }
-}
-
-//
-// TODO: DEPRECATED
-//
-func (c *Cash) IsValid() bool {
-  c.validateUniquenessOfName()
-
-  return c.Errors().IsEmpty()
-}
-
-//
-// TODO: DEPRECATED
-//
-func (c *Cash) validateUniquenessOfName() {
-  var count int
-
-  query := DB.Table("cashes").Where("LOWER(name)=?", strings.ToLower(c.Name))
-
-  if c.ID != 0 {
-    query = query.Not("id = ?", c.ID)
-  }
-
-  query.Count(&count)
-
-  if count > 0 {
-    c.Errors().Add("name", "already exists")
   }
 }
 

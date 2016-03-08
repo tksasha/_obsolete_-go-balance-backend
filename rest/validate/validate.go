@@ -11,6 +11,7 @@ import (
   . "github.com/tksasha/balance/rest/validate/format_of_email"
   . "github.com/tksasha/balance/rest/validate/length_of"
   . "github.com/tksasha/balance/rest/validate/greater_than"
+  . "github.com/tksasha/balance/rest/validate/uniqueness_of"
 )
 
 func Validate(resource Resource) {
@@ -27,6 +28,8 @@ func Validate(resource Resource) {
         ValidatePresenceOf(resource, attribute)
       case "email":
         ValidateFormatOfEmail(resource, attribute)
+      case "unique":
+        ValidateUniquenessOf(resource, attribute)
       }
 
       lengthAtLeast(resource, attribute, tag)
