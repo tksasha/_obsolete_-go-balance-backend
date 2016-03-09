@@ -25,7 +25,7 @@ categories.delete:
 	curl -X DELETE $(categories)/$(id) | jq .
 
 categories.update:
-	curl -X PATCH -d 'category[name]=$(name)&category[income]=$(income)' $(categories)/$(id) | jq .
+	curl -X PATCH -d "$(params)" $(categories)/$(id) | jq .
 
 cashes.index:
 	curl $(cashes) | jq .

@@ -2,7 +2,6 @@ package models
 
 import (
   "net/url"
-  "strings"
   "time"
 
   . "github.com/tksasha/balance/rest/model"
@@ -18,7 +17,7 @@ type Category struct {
   Model
 
   ID        int        `json:"id"`
-  Name      string     `json:"name"     valid:"present"`
+  Name      string     `json:"name"     valid:"present,unique"`
   Income    bool       `json:"income"`
   CreatedAt time.Time  `json:"-"`
   UpdatedAt time.Time  `json:"-"`
@@ -42,34 +41,6 @@ func (c *Category) Build(values url.Values) {
     default:
       c.Income = false
     }
-  }
-}
-
-//
-// DEPRECATED
-//
-func (c *Category) IsValid() bool {
-  c.validateUniquenessOfName()
-
-  return c.Errors().IsEmpty()
-}
-
-//
-// DEPRECATED
-//
-func (c *Category) validateUniquenessOfName() {
-  var count int
-
-  query := DB.Table("categories").Where("LOWER(name)=?", strings.ToLower(c.Name))
-
-  if c.ID != 0 {
-    query = query.Not("id = ?", c.ID)
-  }
-
-  query.Count(&count)
-
-  if count > 0 {
-    c.Errors().Add("name", "already exists")
   }
 }
 

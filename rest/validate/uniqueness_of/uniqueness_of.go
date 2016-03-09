@@ -18,12 +18,14 @@ func ValidateUniquenessOf(resource Resource, attribute string) {
 
   var count int
 
-  query := DB.Model(resource).Where("LOWER(" + field + ")=?", strings.ToLower(value.String()))
+  table := DB.NewScope(resource).TableName()
+
+  query := DB.Table(table).Where("LOWER(" + field + ")=?", strings.ToLower(value.String()))
 
   id := reflect.Indirect(reflected).FieldByName("ID").Int()
 
   if id > 0 {
-    query = query.Not("id=?", id)
+    query = query.Not("id", id)
   }
 
   query.Count(&count)
